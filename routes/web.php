@@ -15,3 +15,5 @@ Route::any('/', "Auth\LoginController@login")->name('loginAction');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
+
+Route::resource('projekty','Manage\ProjektyController');
