@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\manage;
 
+use App\Http\Form\ProjektDodajForm;
 use App\Http\Model\ProjektyModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,9 +26,21 @@ class ProjektyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $f = new ProjektDodajForm();
+        $form = $f::prepareForm();
+        if($request->getMethod() == "POST"){
+            $data = $request->all();
+            $data['slug'] = $data['nazwa'];
+            if(!isset($data['is_active'])){
+                $data['is_active'] = 0;
+            }
+            ProjektyModel::addProjekt($data);
+            $request->getSession()->flash('successMessage','Pomyślnie dodano nowy projekt!');
+            return redirect('/projekty');
+        }
+        return view('projekty/dodaj',array('form'=>$form));
     }
 
     /**
@@ -84,5 +97,9 @@ class ProjektyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setKonfiguracja(){
+
     }
 }

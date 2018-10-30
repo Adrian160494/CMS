@@ -12,7 +12,6 @@ class LoginController extends Controller
     public function login(Request $request){
         $f = new LoginForm();
         $form = $f::prepareForm();
-        $e = "Form::label('Siema,'',['class'=>'input'])";
         $userAuth = $request->getSession()->get('userAuth');
         if($userAuth){
             return redirect('/manage');
@@ -31,7 +30,7 @@ class LoginController extends Controller
                $request->getSession()->flash('errorMessage','Podano błędne dane');
            }
         }
-        return view('login/login',array('form'=>$form,'e'=>$e));
+        return view('login/login',array('form'=>$form));
     }
     public function logout(Request $request){
         $session = $request->getSession();

@@ -17,3 +17,4 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
 
 Route::resource('projekty','Manage\ProjektyController');
+Route::post('/projekty/create','Manage\ProjektyController@create');

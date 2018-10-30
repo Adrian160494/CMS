@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="col-md-12 table-wrap">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-center">
             <thead>
             <tr>
                 <td>Id</td>
@@ -22,6 +22,7 @@
                 <td>Konfiguracja</td>
                 <td>Zarządzaj</td>
                 <td width="50">Edytuj</td>
+                <td width="50">Usuń</td>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,18 @@
                         @else
                             <span class="btn-no">Nie</span>
                         @endif
+                    </td>
+                    <td>
+                        <a href="#" class="btn-standard">Konfiguracja</a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-standard">Zarządzaj</a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-edit">Edytuj</a>
+                    </td>
+                    <td>
+                        <a href="" class="btn-delete">Usuń</a>
                     </td>
                 </tr>
             @endforeach
