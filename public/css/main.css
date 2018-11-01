@@ -46,6 +46,12 @@ td {
   /* height: 100px; */
   padding-top: 12px !important; }
 
+.table-form {
+  background: #fff;
+  padding: 50px;
+  border-radius: 20px;
+  border: 1px solid #ddd; }
+
 .btn-long {
   width: 110px; }
 

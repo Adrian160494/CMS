@@ -16,5 +16,7 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
 
-Route::resource('projekty','Manage\ProjektyController');
-Route::post('/projekty/create','Manage\ProjektyController@create');
+Route::get('/projekty','Manage\ProjektyController@index')->name('projekty.index');
+Route::any('/projekty/create','Manage\ProjektyController@create')->name('projekty.create');
+Route::any('/projekty/konfiguracja/{id_projektu?}','Manage\ProjektyController@konfiguracja')->name('projekty.konfiguracja');
+Route::get('/projekty/destroy/{id?}','Manage\ProjektyController@destroy')->name('projekty_destroy');

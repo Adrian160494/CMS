@@ -20,7 +20,6 @@
                 <td>Url</td>
                 <td>Aktywna</td>
                 <td>Konfiguracja</td>
-                <td>Zarządzaj</td>
                 <td width="50">Edytuj</td>
                 <td width="50">Usuń</td>
             </tr>
@@ -45,16 +44,13 @@
                         @endif
                     </td>
                     <td>
-                        <a href="#" class="btn-standard">Konfiguracja</a>
-                    </td>
-                    <td>
-                        <a href="#" class="btn-standard">Zarządzaj</a>
+                        <a href="{{url()->route('projekty.konfiguracja',array('id_projekty'=>$p->id)) }}" class="btn-standard">Konfiguracja</a>
                     </td>
                     <td>
                         <a href="#" class="btn-edit">Edytuj</a>
                     </td>
                     <td>
-                        <a href="" class="btn-delete">Usuń</a>
+                        <a href="{{ url()->route('projekty_destroy',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                     </td>
                 </tr>
             @endforeach
