@@ -4,7 +4,7 @@
             <div class="navigation navbar">
                 <ul class="navbar-nav navv">
                     <li><a href="{{url()->route('projekty.index')}}">Projekty</a> </li>
-                    <li><a href="#">CMS</a> </li>
+                    <li><a href="{{url()->route('cms.index')}}">CMS</a> </li>
                     <li><a href="#">Ustawienia</a> </li>
                     <li><a href="#">Narzędzia</a> </li>
                     <li><a href="#">Panel</a> </li>

@@ -12,6 +12,11 @@ class ProjektyModel extends BaseModel {
         return $result;
     }
 
+    public static function getProjektBySlug($slug){
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE slug='".$slug."'");
+        return $result;
+    }
+
     public static function addProjekt($data){
         $result = DB::insert("INSERT INTO ".self::$table." (`nazwa`,`url`,`slug`,`is_active`) VALUES ('".$data["nazwa"]."','".$data["url"]."','".$data["slug"]."','".$data["is_active"]."')");
         return $result;

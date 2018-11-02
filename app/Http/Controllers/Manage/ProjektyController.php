@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\manage;
 
+use App\Http\Form\AddPageForm;
+use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\KonfiguracjaForm;
+use App\Http\Form\PageContentForm;
 use App\Http\Form\ProjektDodajForm;
 use App\Http\Model\BaseModel;
 use App\Http\Model\KonfiguracjaModel;
+use App\Http\Model\PagesModel;
 use App\Http\Model\ProjektyModel;
+use App\Http\Service\SlugService;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,12 +41,18 @@ class ProjektyController extends Controller
         $form = $f::prepareForm();
         if($request->getMethod() == "POST"){
             $data = $request->all();
-            $data['slug'] = $data['nazwa'];
+            $data['slug'] = SlugService::createSlug($data['nazwa']);
             if(!isset($data['is_active'])){
                 $data['is_active'] = 0;
             }
-            $result = ProjektyModel::insert($data);
+            $validate = $this->validate($request,[
+                'nazwa'=>'required|unique:cms_projekty',
+                'url'=>'required|min:7|max:30',
+            ]);
+            $result = ProjektyModel::addProjekt($data);
             if($result){
+                $result2 = ProjektyModel::getProjektBySlug($data['slug']);
+                PagesModel::addMainPage($result2[0]->id);
                 $request->getSession()->flash('successMessage','Pomyślnie dodano nowy projekt!');
                 return redirect('/projekty');
             } else{
@@ -145,5 +157,85 @@ class ProjektyController extends Controller
             }
         }
         return view('projekty/konfiguracja',array('form'=>$form,'konfiguracja'=>$konfiguracja,'id_projektu'=>$id_projektu));
+    }
+
+    /**
+     * Any('/projekty/manage)
+     */
+    public function manage(Request $request){
+        $data_get = $request->all();
+        $f = new ChooseProjectForm();
+        $form = $f::prepareForm();
+        $f2 = new PageContentForm();
+        $formContent = $f2::prepareForm();
+        $projekty = ProjektyModel::getProjekty();
+        $projekty_choose = array();
+        foreach($projekty as $p){
+            $projekty_choose[$p->id] = $p->nazwa;
+        }
+        $form[0]['input']['values'] = $projekty_choose;
+        $form[0]['input']['default'] = $projekty[0]->nazwa;
+        $id = $projekty[0]->id;
+        $nazwa_strony = $projekty[0]->nazwa;
+        if($request->getMethod() == "POST"){
+            $id = $request->get('select');
+        }
+
+        $pages = PagesModel::getPagesById($id);
+        $request->getSession()->put('active','manage');
+        $formContent[0]['input']['value'] = $pages[0]->nazwa;
+        if(isset($data_get['page'])){
+            $nazwa_strony = $data_get['page'];
+            $formContent[0]['input']['value'] = $data_get['page'];
+        }
+
+        return view('projekty/manage',array('projekty'=>$projekty,'pages'=>$pages,'id'=>$id,'nazwa_strony'=>$nazwa_strony,'form'=>$form,'formContent'=>$formContent));
+    }
+
+    /**
+     * Any('/projekty/manage/addPage)
+     */
+    public function addpage(Request $request,$id){
+        $f = new AddPageForm();
+        $form = $f::prepareForm();
+        if($request->getMethod() == "POST"){
+            $data = $request->all();
+            $this->validate($request,[
+                'nazwa'=>'required|unique:cms_projekty_strony',
+                'route'=>'required|unique:cms_projekty_strony',
+            ]);
+            $data['slug'] = SlugService::createSlug($data['nazwa']);
+            $data['id_projektu'] = $id;
+            $result = PagesModel::insert($data);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie dodano stronę!');
+                return redirect('/projekty/manage');
+            } else {
+                $request->getSession()->flash('errorMessage','Napotkano na błąd!');
+                return redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+
+        return view('projekty/addpage',array('id'=>$id,'form'=>$form));
+    }
+
+    public function deletepage(Request $request,$id){
+        $result = PagesModel::deletePage($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Pomyślnie usunięto stronę!');
+        } else {
+            $request->getSession()->flash('errorMessage','Napotkano na błąd!');
+        }
+        return redirect('/projekty/manage');
+    }
+
+    public function addContent(Request $request){
+        if($request->getMethod() == "POST"){
+            $request->all();
+            $this->validate($request,[
+                'name' => 'required',
+            ]);
+        }
+        return redirect('/projekty/manage');
     }
 }

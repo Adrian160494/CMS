@@ -7,7 +7,7 @@
                 @elseif($v['type'] == 'text')
                 {{ Form::text($v['name'],$v['hint'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'password')
-                {{ Form::password($v['name'],$v['hint'],['class'=>$v['class']]) }}
+                {{ Form::password($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'textarea')
                 {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'submit')
