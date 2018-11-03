@@ -12,30 +12,13 @@
                         <div class="col-md-10">
                             {{ Form::text($v['name'],$v['value'],['class'=>$v['class']]) }}
                         </div>
-                    @elseif($v['type'] == 'password')
-                        <div class="col-md-10">
-                            {{ Form::password($v['name'],$v['value'],['class'=>$v['class']]) }}
-                        </div>
                     @elseif($v['type'] == 'submit')
                         <div class="col-md-12">
                             {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                         </div>
-                    @elseif($v['type'] == 'textarea')
-                        <div class="col-md-10">
-                            {!! Form::textarea($v['name'],null, array('class'=>$v['class'],
-                                               'rows' => $v['rows'], 'cols' => $v['cols'])) !!}
-                        </div>
-                    @elseif($v['type'] == 'checkbox')
-                        <div class="col-md-10">
-                            {{ Form::checkbox($v['name']) }}
-                        </div>
-                    @elseif($v['type'] == 'hidden')
-                        <div class="col-md-10">
-                            {{ Form::hidden($v['name'],$v['value']) }}
-                        </div>
                     @elseif($v['type'] == 'select')
                         <div class="col-md-10">
-                            {{ Form::select($v['name'], $v['values'],$v['default']) }}
+                            {{ Form::select($v['name'], $v['values'],$v['default'],['class'=>$v['class']]) }}
                         </div>
                     @endif
 
@@ -50,3 +33,7 @@
         </div>
         <?php echo Form::close() ?>
     </div>
+
+    <script>
+        CKEDITOR.replace( 'content' );
+    </script>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro');
+
 html{
   position: relative;
   width: 100%;
@@ -11,6 +13,7 @@ body{
   position: absolute;
   width: 100%;
   min-height: 100%;
+  font-family: 'Maven Pro', sans-serif;
 }
 
 a{
@@ -255,6 +258,7 @@ label{
 }
 .custom-form-input{
   border: 1px solid #ddd;
+  padding: 5px;
 }
 .custom-form-select{
   width: 200px;
@@ -278,6 +282,7 @@ label{
   }
   .custom-form-input{
     width: 100%;
+    padding: 5px;
   }
 }
 
@@ -454,19 +459,34 @@ label{
         padding: 0;
         list-style-type: none;
         .custom-element{
-          background: #999;
+          background: #181a52ba;
           position: relative;
+          p{
+            position: absolute;
+            top: 35px;
+            left: 10px;
+            color: #b5b5b5;
+            font-style: italic;
+          }
         }
         .subpage{
           margin-left:10%;
           width: 90%;
           position: relative;
+          p{
+            position: absolute;
+            top: 35px;
+            left: 10px;
+            color: #4e4e4e;
+            font-style: italic;
+          }
         }
         li{
           margin: 5px 0;
           width: 100%;
-          background: #ccc;
+          background: #181a527d;
           padding: 10px 0;
+          height: 60px;
           -webkit-border-radius: 4px;
           -moz-border-radius: 4px;
           border-radius: 4px;

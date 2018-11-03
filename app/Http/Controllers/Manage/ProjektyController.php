@@ -10,6 +10,7 @@ use App\Http\Form\ProjektDodajForm;
 use App\Http\Model\BaseModel;
 use App\Http\Model\KonfiguracjaModel;
 use App\Http\Model\PagesModel;
+use App\Http\Model\PageTemplateModel;
 use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
 use Illuminate\Contracts\Validation\Validator;
@@ -176,6 +177,12 @@ class ProjektyController extends Controller
         $form[0]['input']['values'] = $projekty_choose;
         $form[0]['input']['default'] = $projekty[0]->nazwa;
         $id = $projekty[0]->id;
+        $templates = PageTemplateModel::getPagesById($id);
+        $templates_choose = array();
+        foreach($templates as $t){
+            $templates_choose[$t->id] = $t->nazwa;
+        }
+        $formContent[1]['input']['values'] = $templates_choose;
         $nazwa_strony = $projekty[0]->nazwa;
         if($request->getMethod() == "POST"){
             $id = $request->get('select');
@@ -184,12 +191,15 @@ class ProjektyController extends Controller
         $pages = PagesModel::getPagesById($id);
         $request->getSession()->put('active','manage');
         $formContent[0]['input']['value'] = $pages[0]->nazwa;
+        $content = PagesModel::getContentPage($pages[0]->id);
+        $formContent[1]['input']['default'] = $pages[0]->id_page_template;
         if(isset($data_get['page'])){
             $nazwa_strony = $data_get['page'];
             $formContent[0]['input']['value'] = $data_get['page'];
+            $content = PagesModel::getContentPage($data_get['id']);
         }
 
-        return view('projekty/manage',array('projekty'=>$projekty,'pages'=>$pages,'id'=>$id,'nazwa_strony'=>$nazwa_strony,'form'=>$form,'formContent'=>$formContent));
+        return view('projekty/manage',array('projekty'=>$projekty,'pages'=>$pages,'id'=>$id,'nazwa_strony'=>$nazwa_strony,'form'=>$form, 'content'=> $content[0]->content,'formContent'=>$formContent));
     }
 
     /**
@@ -231,11 +241,17 @@ class ProjektyController extends Controller
 
     public function addContent(Request $request){
         if($request->getMethod() == "POST"){
-            $request->all();
+            $data = $request->all();
             $this->validate($request,[
-                'name' => 'required',
+                'nazwa' => 'required',
             ]);
+            $result = PagesModel::updateContent($data);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie dodano treść!');
+            } else {
+                $request->getSession()->flash('errorMessage','Napotkano na błąd!');
+            }
         }
-        return redirect('/projekty/manage');
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 }

@@ -23,13 +23,13 @@
             <div class="pages-content">
                 <ul>
                 @foreach ($pages as $p)
-                        <li class="{{$p->slug == "main_page" ? 'custom-element' :'subpage'}}"><a href="{{url()->route('projekty.manage')}}?id={{$p->id}}&page={{$p->nazwa}}">{{$p->nazwa}}<a style="display: {{$p->slug == "main_page"? 'none':'block'}}" class="delete-page" href="{{url()->route('projekty.manage.deletepage',array('id'=>$p->id))}}"><img src="/img/rubbish-bin.svg" width="10"/> </a></a></li>
+                        <li class="{{$p->slug == "main_page" ? 'custom-element' :'subpage'}}"><a href="{{url()->route('projekty.manage')}}?id={{$p->id}}&page={{$p->nazwa}}">{{$p->nazwa}}<a style="display: {{$p->slug == "main_page"? 'none':'block'}}" class="delete-page" href="{{url()->route('projekty.manage.deletepage',array('id'=>$p->id))}}"><img src="/img/rubbish-bin.svg" width="20"/> </a></a><p>Podgląd:{{$p->route}}</p></li>
                     @endforeach
                 </ul>
             </div>
         </div>
         <div class="col-md-9 main-content">
-            @include('layouts.form.form_template_page_content',array('url'=>'/projekty/manage/addContent?id='.$id,'form'=>$formContent))
+            @include('layouts.form.form_template_page_content',array('url'=>'/projekty/manage/addContent?id_projektu='.$id,'form'=>$formContent,'content'=>$content))
         </div>
     </div>
 

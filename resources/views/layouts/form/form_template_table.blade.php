@@ -23,8 +23,7 @@
                        </div>
                    @elseif($v['type'] == 'textarea')
                        <div class="col-md-9">
-                           {!! Form::textarea($v['name'],null, array('class'=>$v['class'],
-                                              'rows' => $v['rows'], 'cols' => $v['cols'])) !!}
+                           {!! Form::textarea($v['name'],null, array('class'=>$v['class'],'rows' => $v['rows'], 'cols' => $v['cols'])) !!}
                        </div>
                    @elseif($v['type'] == 'checkbox')
                        <div class="col-md-9">

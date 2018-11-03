@@ -22,6 +22,11 @@ class PagesModel extends BaseModel {
         return $result;
     }
 
+    public static function getContentPage($id){
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE id=".$id);
+        return $result;
+    }
+
     public static function insert($data){
         if(isset($data['_token'])){
             unset($data['_token']);
@@ -43,6 +48,26 @@ class PagesModel extends BaseModel {
         $sql_a = $sql_a.")";
         $sql_r = $sql.$sql_a;
         $result = DB::insert($sql_r);
+        return $result;
+    }
+
+    public static function updateContent($data){
+        if(isset($data['_token'])){
+            unset($data['_token']);
+        }
+        $sql = "UPDATE ".self::$table." SET ";
+        $data_count = count($data);
+        $counter = 0;
+        foreach($data as $k => $v ){
+            $counter++;
+            if($counter == $data_count){
+                $sql = $sql." ".$k." = '".$v."' ";
+            } else {
+                $sql = $sql." ".$k." = '".$v."', ";
+            }
+        }
+        $sql = $sql." WHERE id_projektu=".$data['id_projektu']." AND nazwa='".$data['nazwa']."'";
+        $result = DB::update($sql);
         return $result;
     }
 }

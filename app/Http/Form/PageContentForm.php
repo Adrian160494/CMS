@@ -15,7 +15,11 @@ class PageContentForm extends Form{
     public static function prepareForm(){
         array_push(self::$form_elements,array(
             'label'=>Form::createLabel('Nazwa','','label-custom'),
-            'input'=>Form::createInput('text','name','','custom-form-input','')
+            'input'=>Form::createInput('text','nazwa','','custom-form-input','')
+        ));
+        array_push(self::$form_elements,array(
+            'label'=>Form::createLabel('Szablon','','label-custom'),
+            'input'=>Form::createSelect('id_page_template','custom-form-input','',''),
         ));
         array_push(self::$form_elements,array(
             'label'=>Form::createLabel('Treść','','label-custom'),

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Maven+Pro");
 html {
   position: relative;
   width: 100%;
@@ -9,7 +10,8 @@ html {
 body {
   position: absolute;
   width: 100%;
-  min-height: 100%; }
+  min-height: 100%;
+  font-family: 'Maven Pro', sans-serif; }
 
 a {
   text-decoration: none !important; }
@@ -203,7 +205,8 @@ label {
   margin-right: 5px; }
 
 .custom-form-input {
-  border: 1px solid #ddd; }
+  border: 1px solid #ddd;
+  padding: 5px; }
 
 .custom-form-select {
   width: 200px;
@@ -223,7 +226,8 @@ label {
   color: #888; }
 
 .table-form .custom-form-input {
-  width: 100%; }
+  width: 100%;
+  padding: 5px; }
 
 .inline-form {
   display: flex;
@@ -351,17 +355,30 @@ label {
     padding: 0;
     list-style-type: none; }
     .manage-panel .sidebar-pages .pages-content ul .custom-element {
-      background: #999;
+      background: #181a52ba;
       position: relative; }
+      .manage-panel .sidebar-pages .pages-content ul .custom-element p {
+        position: absolute;
+        top: 35px;
+        left: 10px;
+        color: #b5b5b5;
+        font-style: italic; }
     .manage-panel .sidebar-pages .pages-content ul .subpage {
       margin-left: 10%;
       width: 90%;
       position: relative; }
+      .manage-panel .sidebar-pages .pages-content ul .subpage p {
+        position: absolute;
+        top: 35px;
+        left: 10px;
+        color: #4e4e4e;
+        font-style: italic; }
     .manage-panel .sidebar-pages .pages-content ul li {
       margin: 5px 0;
       width: 100%;
-      background: #ccc;
+      background: #181a527d;
       padding: 10px 0;
+      height: 60px;
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px; }
