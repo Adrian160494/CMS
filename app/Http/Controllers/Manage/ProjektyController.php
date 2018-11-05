@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manage;
 
 use App\Http\Form\AddPageForm;
+use App\Http\Form\ChangeRoutePageForm;
 use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\KonfiguracjaForm;
 use App\Http\Form\PageContentForm;
@@ -164,12 +165,16 @@ class ProjektyController extends Controller
      * Any('/projekty/manage)
      */
     public function manage(Request $request){
+        $request->getSession()->put('active','manage');
         $data_get = $request->all();
         $f = new ChooseProjectForm();
         $form = $f::prepareForm();
         $f2 = new PageContentForm();
         $formContent = $f2::prepareForm();
+        $f3 = new ChangeRoutePageForm();
+        $form3 = $f3::prepareForm();
         $projekty = ProjektyModel::getProjekty();
+        $slug = "main_page";
         $projekty_choose = array();
         foreach($projekty as $p){
             $projekty_choose[$p->id] = $p->nazwa;
@@ -177,29 +182,61 @@ class ProjektyController extends Controller
         $form[0]['input']['values'] = $projekty_choose;
         $form[0]['input']['default'] = $projekty[0]->nazwa;
         $id = $projekty[0]->id;
+        $pages = PagesModel::getPagesById($id);
+        $urlProjekt = ProjektyModel::getProjektById($id)[0]->url;
         $templates = PageTemplateModel::getPagesById($id);
+        $formContent[1]['input']['default'] = PagesModel::getContentPage($pages[0]->id)[0]->id_page_template;
+
         $templates_choose = array();
+        $route = "/";
         foreach($templates as $t){
             $templates_choose[$t->id] = $t->nazwa;
         }
-        $formContent[1]['input']['values'] = $templates_choose;
-        $nazwa_strony = $projekty[0]->nazwa;
+        $session = $request->getSession();
         if($request->getMethod() == "POST"){
             $id = $request->get('select');
+            $session->put('id_projektu',$id);
         }
 
-        $pages = PagesModel::getPagesById($id);
-        $request->getSession()->put('active','manage');
+        if($session->get('id_projektu')){
+            $id = $session->get('id_projektu');
+            $nazwa_projektu = ProjektyModel::getProjektById($id)[0]->nazwa;
+            $form[0]['input']['default'] = $id;
+            $urlProjekt = ProjektyModel::getProjektById($id)[0]->url;
+            $pages = PagesModel::getPagesById($id);
+            $content = PagesModel::getContentPage($id);
+        }
+        $form3[0]['input']['value'] = $route;
+        $formContent[1]['input']['values'] = $templates_choose;
         $formContent[0]['input']['value'] = $pages[0]->nazwa;
         $content = PagesModel::getContentPage($pages[0]->id);
-        $formContent[1]['input']['default'] = $pages[0]->id_page_template;
         if(isset($data_get['page'])){
             $nazwa_strony = $data_get['page'];
+            $slug = $data_get['slug'];
             $formContent[0]['input']['value'] = $data_get['page'];
             $content = PagesModel::getContentPage($data_get['id']);
+            $route = PagesModel::getPageRouteByName($slug,$data_get['id'])[0]->route;
+            $formContent[1]['input']['default'] = PagesModel::getContentPage($data_get['id'])[0]->id_page_template;
+        } else {
+            $nazwa_strony = "Strona glowna";
         }
+        $form3[0]['input']['value'] = $route;
 
-        return view('projekty/manage',array('projekty'=>$projekty,'pages'=>$pages,'id'=>$id,'nazwa_strony'=>$nazwa_strony,'form'=>$form, 'content'=> $content[0]->content,'formContent'=>$formContent));
+
+        return view('projekty/manage',array(
+            'route'=>$route,
+            'projekty'=>$projekty,
+            'projektUrl'=>$urlProjekt,
+            'pages'=>$pages,
+            'id'=>$id,
+            'slug'=>$slug,
+            'id_projektu'=>$id,
+            'nazwa_strony'=>$nazwa_strony,
+            'form'=>$form,
+            'content'=> $content[0]->content,
+            'formContent'=>$formContent,
+            'form3' => $form3,
+        ));
     }
 
     /**
@@ -248,6 +285,23 @@ class ProjektyController extends Controller
             $result = PagesModel::updateContent($data);
             if($result){
                 $request->getSession()->flash('successMessage','Pomyślnie dodano treść!');
+                return redirect('/projekty/manage?id=10&page='.$data['nazwa'].'&slug=prenumerata');
+            } else {
+                $request->getSession()->flash('errorMessage','Napotkano na błąd!');
+            }
+        }
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function changeRoute(Request $request){
+        $data = $request->all();
+        if($request->getMethod() == "POST"){
+            $this->validate($request,[
+                'route' => 'required|min:3',
+            ]);
+            $result = PagesModel::changePageRoute($data['id_projektu'],$data['page_name'],$data['route']);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie zmieniono routing!');
             } else {
                 $request->getSession()->flash('errorMessage','Napotkano na błąd!');
             }

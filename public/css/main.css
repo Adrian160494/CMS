@@ -378,7 +378,6 @@ label {
       width: 100%;
       background: #181a527d;
       padding: 10px 0;
-      height: 60px;
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px; }
@@ -387,7 +386,23 @@ label {
       .manage-panel .sidebar-pages .pages-content ul li .delete-page {
         position: absolute;
         right: 5px;
-        top: -5px; }
+        top: -10px; }
       .manage-panel .sidebar-pages .pages-content ul li a {
         padding: 20px 10px;
         color: #fff; }
+
+.manage-panel .main-content .page-url-route {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin: 20px;
+  background: #eee; }
+  .manage-panel .main-content .page-url-route p {
+    margin: 0; }
+
+.manage-panel .main-content .page-route-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }

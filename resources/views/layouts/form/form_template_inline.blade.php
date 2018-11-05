@@ -1,4 +1,7 @@
-    <div class="col-md-12 inline-form">
+    <div class="col-md-<?php if(isset($leftContent)){echo '10';} else {echo '12';} ?> inline-form" style=" <?php if(isset($leftContent)){echo 'justify-content: left !important;
+    position: relative;
+    top: 14px;
+    left: -60px;';} ?>">
         <?php echo Form::open(['url' => $url]) ?>
         @foreach($form as $f)
             <div class="form-group text-center col-md-12">

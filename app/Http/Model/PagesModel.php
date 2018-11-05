@@ -12,6 +12,16 @@ class PagesModel extends BaseModel {
         return $result;
     }
 
+    public static function getPageRouteByName($name,$id){
+        $result =DB::select("SELECT route FROM ".self::$table." WHERE slug='".$name."' AND id=".$id);
+        return $result;
+    }
+
+    public static function changePageRoute($id,$name,$route){
+        $result = DB::update("UPDATE ".self::$table." SET route='".$route."' WHERE id_projektu=".$id." AND nazwa='".$name."'");
+        return $result;
+    }
+
     public static function addMainPage($id){
         $result = DB::insert("INSERT INTO ".self::$table." (`id_projektu`,`nazwa`,`route`,`content`,`slug`) VALUES ('".$id."','Strona glowna','/',null,'main_page')");
         return $result;
@@ -66,7 +76,7 @@ class PagesModel extends BaseModel {
                 $sql = $sql." ".$k." = '".$v."', ";
             }
         }
-        $sql = $sql." WHERE id_projektu=".$data['id_projektu']." AND nazwa='".$data['nazwa']."'";
+        $sql = $sql." WHERE id_projektu=".$data['id_projektu']." AND slug='".$data['slug']."'";
         $result = DB::update($sql);
         return $result;
     }
