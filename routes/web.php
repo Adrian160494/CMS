@@ -27,4 +27,6 @@ Route::any('/projekty/manage/deletePage/{id?}/{slug?}','Manage\ProjektyControlle
 Route::any('/projekty/manage/addContent','Manage\ProjektyController@addContent')->name('projekty.manage.addContent');
 Route::any('/projekty/manage/changeRoute','Manage\ProjektyController@changeRoute')->name('projekty.manage.changeRoute');
 
-Route::any('/cms','Manage\CmsController@index')->name('cms.index');
+Route::any('/cms/menu','CMS\CmsController@index')->name('cms.menu');
+Route::any('/cms/changeProjekt','CMS\CmsController@changeProjekt')->name('cms.menu.changeProjekt');
+Route::any('/cms/menu/create','CMS\CmsController@create')->name('cms.menucreate');

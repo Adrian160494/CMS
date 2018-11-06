@@ -288,9 +288,13 @@ label {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; }
+  min-height: 100%; }
   .container-mine .background {
     background: url(../img/background.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     opacity: 0.2;
     position: absolute;
     top: 0;
