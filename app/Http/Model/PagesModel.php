@@ -17,6 +17,11 @@ class PagesModel extends BaseModel {
         return $result;
     }
 
+    public static function getMainPageBySlug($name,$id){
+        $result =DB::select("SELECT route FROM ".self::$table." WHERE slug='".$name."' AND id_projektu=".$id);
+        return $result;
+    }
+
     public static function changePageRoute($id,$name,$route){
         $result = DB::update("UPDATE ".self::$table." SET route='".$route."' WHERE id_projektu=".$id." AND nazwa='".$name."'");
         return $result;

@@ -23,24 +23,32 @@ class MenuModel extends BaseModel {
         return $result;
     }
 
-    public static function changePageRoute($id,$name,$route){
-        $result = DB::update("UPDATE ".self::$table." SET route='".$route."' WHERE id_projektu=".$id." AND nazwa='".$name."'");
+    public static function getMenuToEdit($id,$id_projektu){
+        $result =DB::select("SELECT nazwa, czy_submenu, is_active FROM ".self::$table." WHERE id_projektu=".$id_projektu." AND id=".$id);
         return $result;
     }
 
-    public static function addMainPage($id){
-        $result = DB::insert("INSERT INTO ".self::$table." (`id_projektu`,`nazwa`,`route`,`content`,`slug`) VALUES ('".$id."','Strona glowna','/',null,'main_page')");
-        return $result;
-    }
 
-    public static function deletePage($id){
+    public static function deleteMenu($id){
         $result = DB::delete("DELETE FROM ".self::$table." WHERE id=".$id);
         return $result;
     }
 
-    public static function getContentPage($id){
-        $result = DB::select("SELECT * FROM ".self::$table." WHERE id=".$id);
-        return $result;
+    public static function changeActivity($id){
+        $result = DB::select("SELECT is_active FROM ".self::$table." WHERE id=".$id);
+        if($result[0]->is_active){
+            DB::update('UPDATE '.self::$table.' SET is_active=0 WHERE id='.$id);
+        } else {
+            DB::update('UPDATE '.self::$table.' SET is_active=1 WHERE id='.$id);
+        }
+    }
+    public static function changeSubmenu($id){
+        $result = DB::select("SELECT czy_submenu FROM ".self::$table." WHERE id=".$id);
+        if($result[0]->czy_submenu){
+            DB::update('UPDATE '.self::$table.' SET czy_submenu=0 WHERE id='.$id);
+        } else {
+            DB::update('UPDATE '.self::$table.' SET czy_submenu=1 WHERE id='.$id);
+        }
     }
 
     public static function insert($data){
@@ -67,22 +75,29 @@ class MenuModel extends BaseModel {
         return $result;
     }
 
-    public static function updateContent($data){
+    public static function update($data,$id){
         if(isset($data['_token'])){
             unset($data['_token']);
         }
         $sql = "UPDATE ".self::$table." SET ";
         $data_count = count($data);
         $counter = 0;
-        foreach($data as $k => $v ){
-            $counter++;
-            if($counter == $data_count){
-                $sql = $sql." ".$k." = '".$v."' ";
-            } else {
-                $sql = $sql." ".$k." = '".$v."', ";
+        if($data_count > 1 ){
+            foreach($data as $k => $v ){
+                $counter++;
+                if($counter == $data_count){
+                    $sql = $sql." ".$k." = ".$v.", ";
+                } else {
+                    $sql = $sql." ".$k." = ".$v." ";
+                }
+            }
+        } else{
+            foreach($data as $k => $v ) {
+                $sql = $sql . " " . $k . " = '" . $v . "' ";
             }
         }
-        $sql = $sql." WHERE id_projektu=".$data['id_projektu']." AND slug='".$data['slug']."'";
+
+        $sql = $sql." WHERE id=".$id;
         $result = DB::update($sql);
         return $result;
     }

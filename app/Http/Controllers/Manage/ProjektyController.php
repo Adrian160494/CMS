@@ -186,9 +186,8 @@ class ProjektyController extends Controller
         $urlProjekt = ProjektyModel::getProjektById($id)[0]->url;
         $templates = PageTemplateModel::getPagesById($id);
         $formContent[1]['input']['default'] = PagesModel::getContentPage($pages[0]->id)[0]->id_page_template;
-
         $templates_choose = array();
-        $route = "/";
+        $route = $route = PagesModel:: getMainPageBySlug("main_page",$id)[0]->route;;
         foreach($templates as $t){
             $templates_choose[$t->id] = $t->nazwa;
         }
@@ -296,9 +295,6 @@ class ProjektyController extends Controller
     public function changeRoute(Request $request){
         $data = $request->all();
         if($request->getMethod() == "POST"){
-            $this->validate($request,[
-                'route' => 'required|min:3',
-            ]);
             $result = PagesModel::changePageRoute($data['id_projektu'],$data['page_name'],$data['route']);
             if($result){
                 $request->getSession()->flash('successMessage','Pomyślnie zmieniono routing!');
