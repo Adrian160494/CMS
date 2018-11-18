@@ -37,3 +37,10 @@ Route::get('/cms/menu/changeActivity/{id}','CMS\CmsMenuController@changeActivity
 Route::get('/cms/menu/changeSubmenu/{id}','CMS\CmsMenuController@changeSubmenu')->name('cms.menusubmenu');
 Route::any('/cms/menu/addPosition/{id}/{id_parent?}','CMS\CmsMenuController@dodajPozycjeMenu')->name('cms.menu.addPosition');
 Route::any('/cms/menu/removePosition/{id}/{id_parent?}','CMS\CmsMenuController@delete')->name('cms.menu.removePosition');
+
+Route::any('/cms/bannery','CMS\CmsBanneryController@index')->name('cms.bannery');
+Route::any('/cms/bannery/changeProjekt','CMS\CmsBanneryController@changeProjekt')->name('cms.bannery.changeProjekt');
+Route::any('/cms/bannery/create','CMS\CmsBanneryController@createBanner')->name('cms.bannery.create');
+Route::get('/cms/bannery/changeActivity/{id}','CMS\CmsBanneryController@changeActivity')->name('cms.banneryactivity');
+Route::any('/cms/bannery/delete/{id}','CMS\CmsBanneryController@deleteMenu')->name('cms.bannerydelete');
+
