@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CMS;
 use App\Http\Controllers\Controller;
 use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\CmsBannerDodajForm;
+use App\Http\Form\CreateBanerElementForm;
 use App\Http\Model\BaneryModel;
 use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
@@ -25,7 +26,7 @@ class CmsBanneryController extends Controller {
             $request->getSession()->put('id_projektu',$id_projektu);
             $form[0]['input']['default'] = $id_projektu;
         }
-        $bannery= BaneryModel::getBaneryByProject($id_projektu);
+        $bannery= resolve('bannery')->getBaneryByProject($id_projektu);
         return view('cms/bannery/index',array(
             'form'=>$form,
             'bannery'=>$bannery,
@@ -48,7 +49,7 @@ class CmsBanneryController extends Controller {
                 'nazwa'=>'required|unique:cms_bannery',
                 'id_projektu'=>'required'
             ]);
-            $result = BaneryModel::insert($data);
+            $result = resolve('bannery')->insert($data);
             if($result){
                 $request->getSession()->flash('successMessage','Pomyślnie dodano banner!');
                 return redirect('/cms/bannery');
@@ -84,23 +85,64 @@ class CmsBanneryController extends Controller {
     }
 
     public function changeActivity($id){
-        BaneryModel::changeActivity($id);
+        app()->make('bannery')->changeActivity($id);
         return redirect($_SERVER['HTTP_REFERER']);
     }
 
-    public function delete(Request $request,$id){
-        $result = MenuPositionModel::deletePositionMenu($id);
-        if($result){
-            $request->getSession()->flash('successMessage','Pomyślnie usunięto pozycję!');
-            return redirect($_SERVER['HTTP_REFERER']);
-        } else{
-            $request->getSession()->flash('errorMessage','Wpisano błędne dane!');
-            return redirect($_SERVER['HTTP_REFERER']);
-        }
+    public function configBanner(Request $request,$id,$id_projektu){
+        $params = $request->all();
+        $bannery = app()->make('banneryElements')->getElements($id);
+        return view('cms/bannery/config',array(
+            'id_projektu'=>$id_projektu,
+            'id_baneru'=>$id,
+            'bannery'=> $bannery,
+            ));
     }
 
-    public function deleteMenu(Request $request,$id){
-        $result = BaneryModel::delete($id);
+    public function createBannerElement(Request $request,$id_baneru,$id_projektu){
+        $f = new CreateBanerElementForm();
+        $form = $f::prepareForm();
+        $form[0]['input']['value'] = $id_baneru;
+        if($request->getMethod() == "POST"){
+            $params = $request->all();
+            $banneryEService = app()->make('banneryElements');
+            $baner = app()->make('bannery')->selectWhere($id_baneru,false);
+            $result = $this->uploadFile($baner[0]->nazwa);
+            if($result != 0){
+                $params = $request->all();
+                $data = array(
+                    'id_baneru'=>$id_baneru,
+                    'nazwa'=>$params['nazwa'],
+                    'opis'=>$params['opis'],
+                    'id_plik'=>$result,
+                    'is_active'=> isset($params['is_active']) ? $params['is_active'] : 0,
+                );
+                $result2 = $banneryEService->insert($data);
+                if($result2){
+                    $request->getSession()->flash('successMessage','Pomyślnie dodano element banneru');
+                    return redirect()->route('cms.banneryconfig',array('id'=>$id_baneru,'id_projektu'=>$id_projektu));
+                } else{
+                    $request->getSession()->flash('errorMessage','Wystąpił błąd zapisu!');
+                    return redirect($_SERVER['HTTP_REFERER']);
+                }
+
+            } else{
+                $request->getSession()->flash('errorMessage','Wystąpił błąd przy dodawaniu pliku');
+                return redirect($_SERVER['HTTP_REFERER']);
+            }
+
+        }
+        return view('cms/bannery/dodajElement',array(
+            'id_projektu'=>$id_projektu,
+            'id_baneru'=>$id_baneru,
+            'form'=>$form,
+        ));
+    }
+
+
+
+    public function delete(Request $request,$id){
+        $result = app()->make('banery')->delete($id);
         if($result){
             $request->getSession()->flash('successMessage','Pomyślnie usunięto banner!');
             return redirect($_SERVER['HTTP_REFERER']);

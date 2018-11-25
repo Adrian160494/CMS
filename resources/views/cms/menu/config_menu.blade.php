@@ -1,6 +1,6 @@
 @extends('layouts.logged')
 @section('main-section')
-    @include('layouts.navigation.navigation-cms')
+    @include('layouts.navigation.navigation-cms',array('back','cms.menu'))
     <div class="container">
         <div class="col-md-12 menu-panel">
             <div class="col-md-12 sidebar-pages">

@@ -212,8 +212,8 @@ class ProjektyController extends Controller
         if(isset($data_get['page'])){
             $nazwa_strony = $data_get['page'];
             $slug = $data_get['slug'];
-            $formContent[0]['input']['value'] = $data_get['page'];
             $content = PagesModel::getContentPage($data_get['id']);
+            $formContent[0]['input']['value'] = $content[0]->nazwa;
             $route = PagesModel::getPageRouteByName($slug,$data_get['id'])[0]->route;
             $formContent[1]['input']['default'] = PagesModel::getContentPage($data_get['id'])[0]->id_page_template;
         } else {
@@ -284,7 +284,7 @@ class ProjektyController extends Controller
             $result = PagesModel::updateContent($data);
             if($result){
                 $request->getSession()->flash('successMessage','Pomyślnie dodano treść!');
-                return redirect('/projekty/manage?id=10&page='.$data['nazwa'].'&slug=prenumerata');
+                return redirect($_SERVER['HTTP_REFERER']);
             } else {
                 $request->getSession()->flash('errorMessage','Napotkano na błąd!');
             }

@@ -9,7 +9,7 @@
                 @elseif($v['type'] == 'password')
                 {{ Form::password($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'textarea')
-                {{ Form::submit($v['name'],['class'=>$v['class']]) }}
+                {{ Form::textarea($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'submit')
                 {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'checkbox')

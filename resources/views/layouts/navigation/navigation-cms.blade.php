@@ -5,4 +5,9 @@
         <li class="tab @if(Session::get('active') == 'info') {{'active'}} @endif"><a href="#">Aktualności</a></li>
         <li class="tab @if(Session::get('active') == 'news') {{'active'}} @endif"><a href="#">Wydarzenia</a></li>
     </ul>
+    <div class="come-back">
+        @if(isset($back))
+            <a class="btn-back" href="{{url()->route($back)}}">Powrót</a>
+            @endif
+    </div>
 </div>

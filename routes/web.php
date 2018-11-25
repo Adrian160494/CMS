@@ -43,4 +43,8 @@ Route::any('/cms/bannery/changeProjekt','CMS\CmsBanneryController@changeProjekt'
 Route::any('/cms/bannery/create','CMS\CmsBanneryController@createBanner')->name('cms.bannery.create');
 Route::get('/cms/bannery/changeActivity/{id}','CMS\CmsBanneryController@changeActivity')->name('cms.banneryactivity');
 Route::any('/cms/bannery/delete/{id}','CMS\CmsBanneryController@deleteMenu')->name('cms.bannerydelete');
+Route::any('/cms/bannery/config/{id}/{id_projektu}','CMS\CmsBanneryController@configBanner')->name('cms.banneryconfig');
+Route::any('/cms/bannery/createElement/{id_baneru}/{id_projektu}','CMS\CmsBanneryController@createBannerElement')->name('cms.bannery.createElement');
+
+
 

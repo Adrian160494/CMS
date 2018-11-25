@@ -1,21 +1,17 @@
 @extends('layouts.logged')
 
 @section('main-section')
-    @include('layouts.navigation.navigation-cms')
+    @include('layouts.navigation.navigation-cms',array('back'=>'cms.bannery'))
     <div class="col-md-12">
         <div class="col-md-6">
 
         </div>
-        <div class="col-md-6 text-right">
-            @include('layouts.form.form_template_inline',array('url'=>'/cms/bannery/changeProjekt','form'=>$form))
-        </div>
     </div>
     <div class="col-md-12 text-right">
         <div class="col-md-8 addings">
-
         </div>
         <div class="col-md-4 addings">
-            <a href="{{url()->route('cms.bannery.create')}}?id_projektu={{$id_projektu}}" class="btn-add">Dodaj</a>
+            <a href="{{url()->route('cms.bannery.createElement',array('id_baneru'=>$id_baneru,'id_projektu'=>$id_projektu))}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -24,9 +20,11 @@
                 <thead>
                 <tr>
                     <td>Id</td>
+                    <td>Zdjęcie</td>
                     <td>Nazwa</td>
-                    <td>Konfiguruj</td>
-                    <td>Aktywny</td>
+                    <td>Opis</td>
+                    <td>Data dodania</td>
+                    <td>Aktywnosc</td>
                     <td width="50">Edytuj</td>
                     <td width="50">Usuń</td>
                 </tr>
@@ -38,10 +36,16 @@
                             {{$p->id}}
                         </td>
                         <td>
+                            <img src="{{$p->sciezka_plik}}" width="100" />
+                        </td>
+                        <td>
                             {{$p->nazwa}}
                         </td>
                         <td>
-                            <a href="{{url()->route('cms.banneryconfig',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-standard">Konfiguruj</a>
+                            {{$p->opis}}
+                        </td>
+                        <td>
+                            {{$p->data_dodania}}
                         </td>
                         <td>
                             @if($p->is_active)
@@ -51,7 +55,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{url()->route('cms.menuedit',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-edit">Edytuj</a>
+                            <a href="" class="btn-edit">Edytuj</a>
                         </td>
                         <td>
                             <a href="{{ url()->route('cms.bannerydelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>

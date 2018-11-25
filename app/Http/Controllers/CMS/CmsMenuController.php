@@ -183,8 +183,8 @@ class CmsMenuController extends Controller{
                 unset($data['id_parent_submenu']);
             }
             $this->validate($request,[
-                'nazwa'=>'required|unique:cms_menu_positions',
-                'url'=>'required|unique:cms_menu_positions',
+                'nazwa'=>'required',
+                'url'=>'required',
             ]);
             $result = MenuPositionModel::insert($data);
             if($result){

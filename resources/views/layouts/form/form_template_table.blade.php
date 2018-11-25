@@ -1,6 +1,6 @@
 <div class="container-form ">
    <div class="col-md-12 table-form">
-       <?php echo Form::open(['url' => $url]) ?>
+       <?php echo Form::open(['url' => $url,'files' => isset($formfile) ? true : false]) ?>
        @foreach($form as $f)
            <?php //dump($form);die; ?>
            <div class="form-group text-center col-md-12">
@@ -16,6 +16,10 @@
                    @elseif($v['type'] == 'password')
                        <div class="col-md-9">
                            {{ Form::password($v['name'],$v['value'],['class'=>$v['class']]) }}
+                       </div>
+                   @elseif($v['type'] == 'file')
+                       <div class="col-md-9">
+                           {{ Form::file($v['name'],['class'=>$v['class']]) }}
                        </div>
                    @elseif($v['type'] == 'submit')
                        <div class="col-md-12">
