@@ -49,7 +49,18 @@ Route::any('/cms/bannery/deleteElement/{id_baneru}','CMS\CmsBanneryController@de
 Route::any('/cms/bannery/changeElementActivity/{id_baneru}','CMS\CmsBanneryController@changeElementActivity')->name('cms.bannery.changeElementActivity');
 Route::any('/cms/bannery/resize/{id}/{width}/{height}/{id_size}','CMS\CmsBanneryController@resizePicture')->name('config.pictureresize');
 
+Route::any('/cms/posts','CMS\CmsPostsController@index')->name('cms.posts');
+Route::any('/cms/posts/changeProjekt','CMS\CmsPostsController@changeProjekt')->name('cms.posts.changeProjekt');
+Route::any('/cms/posts/create','CMS\CmsPostsController@create')->name('cms.posts.create');
+Route::get('/cms/posts/changeActivity/{id}','CMS\CmsPostsController@changeActivity')->name('cms.posts.activity');
+Route::any('/cms/posts/delete/{id}','CMS\CmsPostsController@delete')->name('cms.posts.delete');
+Route::any('/cms/posts/edit/{id}','CMS\CmsPostsController@edit')->name('cms.posts.edit');
 Route::any('/configuration/pictures','Ustawienia\PicturesController@index')->name('config.pictures');
 Route::any('/configuration/pictures/create','Ustawienia\PicturesController@create')->name('config.picturescreate');
 Route::any('/configuration/pictures/delete/{id}','Ustawienia\PicturesController@delete')->name('config.picturesdelete');
 
+
+Route::any('/configuration/categories','Ustawienia\CategoriesController@index')->name('config.categories');
+Route::any('/configuration/categories/create','Ustawienia\CategoriesController@create')->name('config.categoriescreate');
+Route::any('/configuration/categories/delete/{id}','Ustawienia\CategoriesController@delete')->name('config.categoriesdelete');
+Route::any('/configuration/categories/changeActivity/{id}','Ustawienia\CategoriesController@changeActivity')->name('config.categoriesActivity');
