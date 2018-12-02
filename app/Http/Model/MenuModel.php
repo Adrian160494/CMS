@@ -38,8 +38,10 @@ class MenuModel extends BaseModel {
         $result = DB::select("SELECT is_active FROM ".self::$table." WHERE id=".$id);
         if($result[0]->is_active){
             DB::update('UPDATE '.self::$table.' SET is_active=0 WHERE id='.$id);
+            return 0;
         } else {
             DB::update('UPDATE '.self::$table.' SET is_active=1 WHERE id='.$id);
+            return 1;
         }
     }
     public static function changeSubmenu($id){

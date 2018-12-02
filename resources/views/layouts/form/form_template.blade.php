@@ -18,4 +18,9 @@
         @endforeach
     </div>
 @endforeach
+<div class="errors">
+    @foreach($errors->all() as $error)
+        <span>{{$error}}</span>
+    @endforeach
+</div>
 <?php echo Form::close() ?>

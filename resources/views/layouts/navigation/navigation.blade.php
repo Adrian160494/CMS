@@ -1,11 +1,11 @@
 <nav style="height: 100px;">
     <div class="col-md-12 navigation-bar">
         <div class="col-md-8">
-            <div class="navigation navbar">
+            <div class="navigation navbar  nav-main">
                 <ul class="navbar-nav navv">
-                    <li><a href="{{url()->route('projekty.index')}}">Projekty</a> </li>
-                    <li><a href="{{url()->route('cms.menu')}}">CMS</a> </li>
-                    <li><a href="#">Ustawienia</a> </li>
+                    <li @if(Session::get('activeMain') == 'projekty') class="active" @endif><a href="{{url()->route('projekty.index')}}">Projekty</a> </li>
+                    <li @if(Session::get('activeMain') == 'menu') class="active" @endif><a href="{{url()->route('cms.menu')}}">CMS</a> </li>
+                    <li @if(Session::get('activeMain') == 'ustawienia') class="active" @endif><a href="{{url()->route('config.pictures')}}">Ustawienia</a> </li>
                     <li><a href="#">Narzędzia</a> </li>
                     <li><a href="#">Panel</a> </li>
                 </ul>

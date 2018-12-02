@@ -42,9 +42,14 @@ Route::any('/cms/bannery','CMS\CmsBanneryController@index')->name('cms.bannery')
 Route::any('/cms/bannery/changeProjekt','CMS\CmsBanneryController@changeProjekt')->name('cms.bannery.changeProjekt');
 Route::any('/cms/bannery/create','CMS\CmsBanneryController@createBanner')->name('cms.bannery.create');
 Route::get('/cms/bannery/changeActivity/{id}','CMS\CmsBanneryController@changeActivity')->name('cms.banneryactivity');
-Route::any('/cms/bannery/delete/{id}','CMS\CmsBanneryController@deleteMenu')->name('cms.bannerydelete');
+Route::any('/cms/bannery/delete/{id}','CMS\CmsBanneryController@delete')->name('cms.bannerydelete');
 Route::any('/cms/bannery/config/{id}/{id_projektu}','CMS\CmsBanneryController@configBanner')->name('cms.banneryconfig');
 Route::any('/cms/bannery/createElement/{id_baneru}/{id_projektu}','CMS\CmsBanneryController@createBannerElement')->name('cms.bannery.createElement');
+Route::any('/cms/bannery/deleteElement/{id_baneru}','CMS\CmsBanneryController@deleteElement')->name('cms.bannery.deleteElement');
+Route::any('/cms/bannery/changeElementActivity/{id_baneru}','CMS\CmsBanneryController@changeElementActivity')->name('cms.bannery.changeElementActivity');
+Route::any('/cms/bannery/resize/{id}/{width}/{height}/{id_size}','CMS\CmsBanneryController@resizePicture')->name('config.pictureresize');
 
-
+Route::any('/configuration/pictures','Ustawienia\PicturesController@index')->name('config.pictures');
+Route::any('/configuration/pictures/create','Ustawienia\PicturesController@create')->name('config.picturescreate');
+Route::any('/configuration/pictures/delete/{id}','Ustawienia\PicturesController@delete')->name('config.picturesdelete');
 

@@ -32,12 +32,13 @@ class Controller extends BaseController
         $fileType = $_FILES['file']['type'];
         $root = $_SERVER['DOCUMENT_ROOT'];
         $katalog = $root.'\\'."img\uploads".'\\'.$currentDir.'\\';
-        $uploadPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/'.$date.$fileName;
-        $sciezka = '/'.$this->uploadDirectory.'/'.$currentDir.'/'.$date.$fileName;
-        $data = array(
-            'nazwa' => $fileName,
-            'sciezka'=> $sciezka,
-        );
+
+            $uploadPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/original-'.$date.$fileName;
+            $sciezka = '/'.$this->uploadDirectory.'/'.$currentDir.'/original-'.$date.$fileName;
+            $data = array(
+                'nazwa' => $fileName,
+                'sciezka'=> $sciezka,
+            );
 
         if(!is_dir($katalog)){
             mkdir($katalog,0777);
@@ -46,6 +47,15 @@ class Controller extends BaseController
             $fileService = app()->make('Files');
             $id = $fileService->insert($data);
             if($id){
+                $sizes = app()->make('Size')->getSize();
+                foreach($sizes as $s){
+                    $newPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/'.$s->width.'x'.$s->height.'-'.$date.$fileName;
+                    $this->resize($uploadPath,$newPath,$s->width,$s->height);
+                }
+
+                foreach($sizes as $s){
+                    app()->make('ImageSizes')->insert(array('id_picture'=>$fileService->getFileBySciezka($sciezka)[0]->id,'id_size'=>$s->id));
+                }
                 return $fileService->getFileBySciezka($sciezka)[0]->id;
             } else{
                 return 0;
@@ -54,6 +64,38 @@ class Controller extends BaseController
             return 0;
         }
 
+    }
+
+    public function resize($picture,$newPath,$width,$height){
+
+        if(!empty($picture)){
+            $source_image = imagecreatefromjpeg($picture);
+            $source_imagex = imagesx($source_image);
+            $source_imagey = imagesy($source_image);
+
+            $dest_imagex = $width;
+            $ratio = $source_imagex/$dest_imagex;
+            $dest_imagey = $source_imagey/$ratio;
+
+
+            $image2 = imagecreatetruecolor($dest_imagex, $dest_imagey);
+            imagecopyresampled($image2, $source_image, 0, 0, 0, 0,
+                $dest_imagex, $dest_imagey, $source_imagex, $source_imagey);
+            if($dest_imagey < $height){
+                imagejpeg($image2, $newPath, 100);
+                return $image2;
+            } else{
+
+                $image3 = imagecreatetruecolor($width, $height);
+
+                imagecopyresampled($image3, $image2, 0, 0, 0, ($dest_imagey - $height)/2,
+                    $width, $height, $width, $height);
+                imagejpeg($image3, $newPath, 100);
+                return $image3;
+            }
+        } else {
+            return null;
+        }
     }
 
 

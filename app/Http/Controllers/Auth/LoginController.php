@@ -18,6 +18,10 @@ class LoginController extends Controller
         }
         if($request->getMethod() == "POST"){
             $data = $request->all();
+            $this->validate($request,array(
+                'username'=>'required',
+                'password'=>'required|min:3'
+            ));
             $username = $data['username'];
             $password = $data['password'];
            $user =  User::getUserByUsername($username);

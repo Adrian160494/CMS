@@ -26,6 +26,10 @@ class KonfiguracjaForm extends Form{
             'input'=>Form::createInput('text','sciezka_view','','custom-form-input')
         ));
         array_push(self::$form_elements,array(
+            'label'=>Form::createLabel('Serwer obrazkow','','label-custom'),
+            'input'=>Form::createInput('text','server_picture','','custom-form-input')
+        ));
+        array_push(self::$form_elements,array(
             'input'=>Form::createInput('hidden','id_projektu','','custom-form-input')
         ));
         array_push(self::$form_elements,array(

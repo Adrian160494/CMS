@@ -29,6 +29,7 @@ class ProjektyController extends Controller
     {
         $request->getSession()->put('active','projekty');
         $projekty = ProjektyModel::getProjekty();
+        $request->getSession()->put('activeMain','projekty');
         return view('projekty/index',array('projekty'=>$projekty));
     }
 
@@ -139,8 +140,9 @@ class ProjektyController extends Controller
             $form[0]['input']['value'] = $konfiguracja[0]->sciezka_server;
             $form[1]['input']['value'] = $konfiguracja[0]->sciezka_route;
             $form[2]['input']['value'] = $konfiguracja[0]->sciezka_view;
+            $form[3]['input']['value'] = $konfiguracja[0]->server_picture;
         }
-        $form[3]['input']['value'] = $id_projektu;
+        $form[4]['input']['value'] = $id_projektu;
 
         if($request->getMethod() == "POST"){
             $data = $request->all();

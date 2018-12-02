@@ -8,5 +8,5 @@
     <main>
         @yield('main-section')
     </main>
-    @endsection
 </div>
+@endsection

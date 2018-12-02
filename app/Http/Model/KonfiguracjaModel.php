@@ -8,7 +8,7 @@ class KonfiguracjaModel extends BaseModel {
     public static $table = "cms_projekty_konfiguracja";
 
     public static function selectWhere($id){
-        $result = DB::select("SELECT sciezka_server, sciezka_route, sciezka_view  FROM ".self::$table." WHERE id_projektu=".$id);
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE id_projektu=".$id);
         return $result;
     }
 

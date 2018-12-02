@@ -8,6 +8,7 @@ use App\Http\Form\CreateBanerElementForm;
 use App\Http\Model\BaneryModel;
 use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
+use Illuminate\Database\Query\Grammars\SQLiteGrammar;
 use Illuminate\Http\Request;
 use League\Flysystem\Config;
 
@@ -84,18 +85,15 @@ class CmsBanneryController extends Controller {
         return redirect('/cms/bannery?id_projektu='.$id_projektu);
     }
 
-    public function changeActivity($id){
-        app()->make('bannery')->changeActivity($id);
-        return redirect($_SERVER['HTTP_REFERER']);
-    }
-
     public function configBanner(Request $request,$id,$id_projektu){
         $params = $request->all();
         $bannery = app()->make('banneryElements')->getElements($id);
+        $size = app()->make('Size')->getSize();
         return view('cms/bannery/config',array(
             'id_projektu'=>$id_projektu,
             'id_baneru'=>$id,
             'bannery'=> $bannery,
+            'size'=>$size,
             ));
     }
 
@@ -107,7 +105,7 @@ class CmsBanneryController extends Controller {
             $params = $request->all();
             $banneryEService = app()->make('banneryElements');
             $baner = app()->make('bannery')->selectWhere($id_baneru,false);
-            $result = $this->uploadFile($baner[0]->nazwa);
+            $result = $this->uploadFile(SlugService::createSlug($baner[0]->nazwa));
             if($result != 0){
                 $params = $request->all();
                 $data = array(
@@ -139,10 +137,32 @@ class CmsBanneryController extends Controller {
         ));
     }
 
+    public function resizePicture(Request $request,$id,$width,$height,$id_size){
+        $root = $_SERVER['DOCUMENT_ROOT'];
+        $element = app()->make('banneryElements')->getElementById($id);
+        $newPath = $root.str_replace('original-',$width.'x'.$height.'-',$element[0]->sciezka_plik);
+        $result = $this->resize($root.$element[0]->sciezka_plik,$newPath,$width,$height);
+        app()->make('ImageSizes')->insert(array('id_picture'=>$element[0]->id_plik,'id_size'=>$id_size));
 
+        if($result){
+            $request->getSession()->flash('successMessage','Pomyślnie dodano rozmiar!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
 
     public function delete(Request $request,$id){
-        $result = app()->make('banery')->delete($id);
+        $result = app()->make('bannery')->delete($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Pomyślnie usunięto baner!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        } else{
+            $request->getSession()->flash('errorMessage','Wpisano błędne dane!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function deleteElement(Request $request,$id){
+        $result = app()->make('banneryElements')->delete($id);
         if($result){
             $request->getSession()->flash('successMessage','Pomyślnie usunięto banner!');
             return redirect($_SERVER['HTTP_REFERER']);
@@ -150,6 +170,30 @@ class CmsBanneryController extends Controller {
             $request->getSession()->flash('errorMessage','Wpisano błędne dane!');
             return redirect($_SERVER['HTTP_REFERER']);
         }
+    }
+
+    public function changeActivity(Request $request,$id){
+        $result = app()->make('bannery')->changeActivity($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Aktywowano banner!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        } else{
+            $request->getSession()->flash('successMessage','Deaktywowano banner!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function changeElementActivity(Request $request,$id){
+        $result = app()->make('banneryElements')->changeActivity($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Aktywowano element!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        } else{
+            $request->getSession()->flash('successMessage','Deaktywowano element!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
 }

@@ -20,11 +20,12 @@
                 <thead>
                 <tr>
                     <td>Id</td>
-                    <td>Zdjęcie</td>
+                    <td width="150">Zdjęcie</td>
                     <td>Nazwa</td>
                     <td>Opis</td>
-                    <td>Data dodania</td>
-                    <td>Aktywnosc</td>
+                    <td width="220">Data dodania</td>
+                    <td>Wymiary</td>
+                    <td width="50">Aktywnosc</td>
                     <td width="50">Edytuj</td>
                     <td width="50">Usuń</td>
                 </tr>
@@ -48,17 +49,45 @@
                             {{$p->data_dodania}}
                         </td>
                         <td>
+                            @if($p->sciezka_plik)
+                                @php
+                                        $availableSizes = app()->make('ImageSizes')->getSizes($p->id_plik);
+                                //dump($availableSizes);die;
+                                $count=0;
+                                        @endphp
+                                @foreach($size as $s)
+                                    @foreach($availableSizes as $a)
+                                        @if($s->id == $a->id_size)
+                                            @php
+                                                $count++;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                        @if($count > 0)
+                                            <a href="#" class="btn-yes">{{$s->width}}/{{$s->height}}</a>
+                                        @else
+                                            <a href="{{url()->route('config.pictureresize',array('id'=>$p->id,'width'=>$s->width,'height'=>$s->height,'id_size'=>$s->id))}}" class="btn-no">{{$s->width}}/{{$s->height}}</a>
+                                        @endif
+                                    @php
+                                    $count=0;
+                                    @endphp
+                                @endforeach
+                                @else
+
+                            @endif
+                        </td>
+                        <td>
                             @if($p->is_active)
-                                <a href="{{url()->route('cms.banneryactivity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
+                                <a href="{{url()->route('cms.bannery.changeElementActivity',array('id_baneru'=>$p->id))}}" class="btn-yes">Tak</a>
                             @else
-                                <a href="{{url()->route('cms.banneryactivity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
+                                <a href="{{url()->route('cms.bannery.changeElementActivity',array('id_baneru'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
                         </td>
                         <td>
                             <a href="" class="btn-edit">Edytuj</a>
                         </td>
                         <td>
-                            <a href="{{ url()->route('cms.bannerydelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('cms.bannery.deleteElement',array('id_baneru'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

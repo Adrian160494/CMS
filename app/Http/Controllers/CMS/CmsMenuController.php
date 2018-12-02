@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 class CmsMenuController extends Controller{
 
     public function index(Request $request){
+        $request->getSession()->put('activeMain','menu');
         $request->getSession()->put('active','menu');
         $data = $request->all();
         $f = new ChooseProjectForm();
@@ -149,8 +150,15 @@ class CmsMenuController extends Controller{
         ));
     }
 
-    public function changeActivity($id){
-        MenuModel::changeActivity($id);
+    public function changeActivity(Request $request,$id){
+        $result = MenuModel::changeActivity($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Aktywowano menu!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        } else{
+            $request->getSession()->flash('successMessage','Deaktywowano menu!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
         return redirect($_SERVER['HTTP_REFERER']);
     }
 
