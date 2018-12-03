@@ -18,6 +18,11 @@ class CategoriesModel extends BaseModelService {
         return $result;
     }
 
+    public function getAllCategories(){
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE is_active=1");
+        return $result;
+    }
+
     public function delete($id){
         $result = DB::delete("DELETE FROM ".self::$table." WHERE id=".$id);
         return $result;

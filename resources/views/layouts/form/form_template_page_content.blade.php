@@ -1,7 +1,7 @@
     <div class="col-md-12 page-content">
         <?php echo Form::open(['url' => $url]) ?>
         @foreach($form as $f)
-            <?php //dump($form);die; ?>
+            <?php //dump($f); ?>
             <div class="form-group text-center col-md-12">
                 @foreach($f as $k => $v)
                     @if($v['type'] == 'label')
@@ -15,7 +15,9 @@
                     @elseif($v['type'] == 'textarea')
                         <div class="col-md-10">
                             <textarea name="{{$v['name']}}" class="{{$v['class']}}" cols="{{$v['cols']}}" rows="{{$v['rows']}}">
-                                <?php echo $content;?>
+                                @if(!empty($content))
+                                    {{$content}}
+                                    @endif
                             </textarea>
                         </div>
                     @elseif($v['type'] == 'submit')

@@ -6,6 +6,7 @@ use App\Http\Form\AddNewPostForm;
 use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\CmsBannerDodajForm;
 use App\Http\Form\CreateBanerElementForm;
+use App\Http\Form\EditPostForm;
 use App\Http\Model\BaneryModel;
 use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
@@ -69,9 +70,43 @@ class CmsPostsController extends Controller {
     public function create(Request $request){
         $f = new AddNewPostForm();
         $form = $f::prepareForm();
-
+        $array = $this->createPostSelectCategory($form);
+        $form = $array['form'];
         return view('cms/posts/dodaj',array(
             'form'=>$form,
+        ));
+    }
+
+    public function createPostSelectCategory($form){
+        $categories = array();
+        $categoriesA = app()->make('Categories')->getAllCategories();
+        foreach($categoriesA as $p){
+            $categories[$p->id] = $p->name;
+        }
+        $form[2]['input']['values'] = $categories;
+        $form[2]['input']['default'] = $categoriesA[0]->id;
+        return array(
+            'form'=>$form
+        );
+    }
+
+    public function fillTheForm($post,$form){
+        $form[0]['input']['value'] = $post->title;
+        $form[1]['input']['value'] = $post->author;
+        $form[2]['input']['default'] = $post->id_category;
+        return $form;
+    }
+
+    public function edit(Request $request,$id){
+        $f = new EditPostForm();
+        $form = $f::prepareForm();
+        $post = $this->posts->getPostById($id);
+        $array = $this->createPostSelectCategory($form);
+        $form = $array['form'];
+        $form = $this->fillTheForm($post[0],$form);
+        return view('cms/posts/edit',array(
+            'form'=>$form,
+            'content'=>$post[0]->description
         ));
     }
 }

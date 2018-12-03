@@ -63,7 +63,7 @@
                             @endif
                         </td>
                         <td width="50">
-                            <a href="{{url()->route('cms.posts.edit',array('id'=>$p->id,'id_projektu'=>$id_projektu))}}" class="btn-edit">Edytuj</a>
+                            <a href="{{url()->route('cms.posts.edit',array('id'=>$p->id))}}" class="btn-edit">Edytuj</a>
                         </td>
                         <td width="50">
                             <a href="{{ url()->route('cms.posts.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>

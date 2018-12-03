@@ -36,7 +36,6 @@
                         <div class="col-md-9">
                             {{ Form::select($v['name'], $v['values'],$v['default'],['class'=>$v['class']]) }}
                         </div>
-
                     @endif
                 @endforeach
             </div>

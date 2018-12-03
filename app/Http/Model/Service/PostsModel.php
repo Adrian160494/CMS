@@ -21,6 +21,13 @@ class PostsModel extends BaseModelService {
         return $result;
     }
 
+    public function getPostById($id){
+        $result = DB::select("SELECT cp.*,cc.name as category FROM ".self::$table." as cp 
+        LEFT JOIN cms_category as cc ON cc.id = cp.id_category
+        WHERE cp.id=".$id);
+        return $result;
+    }
+
     public function delete($id){
         $result = DB::delete("DELETE FROM ".self::$table." WHERE id=".$id);
         return $result;
