@@ -104,6 +104,9 @@ class CmsPostsController extends Controller {
         $array = $this->createPostSelectCategory($form);
         $form = $array['form'];
         $form = $this->fillTheForm($post[0],$form);
+        if($request->getMethod() == "POST"){
+
+        }
         return view('cms/posts/edit',array(
             'form'=>$form,
             'content'=>$post[0]->description

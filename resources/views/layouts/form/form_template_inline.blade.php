@@ -4,7 +4,7 @@
     left: -60px;';} ?>">
         <?php echo Form::open(['url' => $url]) ?>
         @foreach($form as $f)
-            <div class="form-group text-center col-md-12">
+            <div class="form-group text-left col-md-12">
                 @foreach($f as $k => $v)
                     @if($v['type'] == 'label')
                         <div class="col-md-3">

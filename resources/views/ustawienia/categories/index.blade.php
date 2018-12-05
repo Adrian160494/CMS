@@ -16,10 +16,10 @@
     </div>
     <div class="col-md-12 table-wrap">
         @if($categories)
-            <table class="table table-bordered table-center">
+            <table class="table table-bordered table-hover  table-center">
                 <thead>
                 <tr>
-                    <td>Id</td>
+                    <td width="50">Id</td>
                     <td>Kategoria</td>
                     <td width="50">Aktywność</td>
                     <td width="50">Usuń</td>

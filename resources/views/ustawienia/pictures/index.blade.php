@@ -16,10 +16,10 @@
     </div>
     <div class="col-md-12 table-wrap">
         @if($pictures)
-            <table class="table table-bordered table-center">
+            <table class="table table-hover table-bordered table-center">
                 <thead>
                 <tr>
-                    <td>Id</td>
+                    <td width="50">Id</td>
                     <td>Szerokość</td>
                     <td>Wysokość</td>
                     <td width="50">Usuń</td>

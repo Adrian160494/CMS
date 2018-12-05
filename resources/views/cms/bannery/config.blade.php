@@ -2,6 +2,7 @@
 
 @section('main-section')
     @include('layouts.navigation.navigation-cms',array('back'=>'cms.bannery'))
+    @include('layouts.navigation.navigation-nested',array("tab"=>"Konfiguracja"))
     <div class="col-md-12">
         <div class="col-md-6">
 
@@ -16,10 +17,10 @@
     </div>
     <div class="col-md-12 table-wrap">
         @if($bannery)
-            <table class="table table-bordered table-center">
+            <table class="table table-hover table-bordered table-center">
                 <thead>
                 <tr>
-                    <td>Id</td>
+                    <td width="50">Id</td>
                     <td width="150">Zdjęcie</td>
                     <td>Nazwa</td>
                     <td>Opis</td>

@@ -1,6 +1,6 @@
 <?php echo Form::open(['url' => $url]) ?>
 @foreach($form as $f)
-    <div class="form-group text-center">
+    <div class="form-group text-left">
         @foreach($f as $k => $v)
             @if($v['type'] == 'label')
                 {{ Form::label($v['name'],$v['hint'],['class'=>$v['class']]) }}

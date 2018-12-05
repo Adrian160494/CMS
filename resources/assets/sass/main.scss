@@ -51,6 +51,15 @@ a{
 
   table{
     background: #fff;
+    box-shadow: 0px 20px 52px 8px #999;
+    thead{
+      tr{
+        td{
+          text-align: center;
+          color: #000;
+        }
+      }
+    }
   }
 
   td{
@@ -71,16 +80,18 @@ a{
   .table-form{
     background: #fff;
     padding: 50px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     border: 1px solid #ddd;
+    box-shadow: 0px 47px 82px 0 #7d7575;
   }
+
 
 
 //////////////////////////////////////////////
 //////////////////// BUTTONS \\\\\\\\\\\\\\\\\\
 
 .btn-long{
-  width: 110px;
+  width: 100%;
 }
 
 .btn-1{
@@ -268,8 +279,9 @@ label{
 
 }
 .custom-form-input{
-  border: 1px solid #ddd;
+  border: 0px solid #ddd;
   padding: 5px;
+  border-bottom: 1px solid #8888887a;
 }
 .custom-form-select{
   width: 200px;
@@ -474,6 +486,29 @@ label{
     height: 62px;
     background: var(--color-blue);
 
+  }
+}
+
+.navigation-nested-tabs{
+  ul{
+    list-style: none;
+    li{
+      position: relative;
+      top: -15px;
+      opacity: 1;
+      height: 62px;
+      width: 132px;
+      background: #fff;
+      height: 39px;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
   }
 }
 

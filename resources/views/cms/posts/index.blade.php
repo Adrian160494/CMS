@@ -20,10 +20,10 @@
     </div>
     <div class="col-md-12 table-wrap">
         @if($posts)
-            <table class="table table-bordered table-center">
+            <table class="table table-hover  table-bordered table-center">
                 <thead>
                 <tr>
-                    <td>Id</td>
+                    <td width="50">Id</td>
                     <td>Tytuł</td>
                     <td>Treść</td>
                     <td>Kategoria</td>

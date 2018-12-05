@@ -20,13 +20,13 @@
     </div>
     <div class="col-md-12 table-wrap">
         @if($menu)
-            <table class="table table-bordered table-center">
+            <table class="table table-hover table-bordered table-center">
                 <thead>
                 <tr>
-                    <td>Id</td>
+                    <td width="50">Id</td>
                     <td>Nazwa</td>
                     <td>Submenu</td>
-                    <td>Aktywny</td>
+                    <td width="50">Aktywny</td>
                     <td width="50">Edytuj</td>
                     <td width="50">Usuń</td>
                 </tr>

@@ -1,6 +1,7 @@
 @extends('layouts.logged')
 @section('main-section')
     @include('layouts.navigation.navigation-cms',array('back','cms.menu'))
+    @include('layouts.navigation.navigation-nested',array("tab"=>"Konfiguracja"))
     <div class="container">
         <div class="col-md-12 menu-panel">
             <div class="col-md-12 sidebar-pages">
