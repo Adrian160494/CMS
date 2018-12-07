@@ -9,6 +9,8 @@ use App\Http\Model\Service\FileModel;
 use App\Http\Model\Service\ImagesSizeModel;
 use App\Http\Model\Service\PictureSizeModel;
 use App\Http\Model\Service\PostsModel;
+use App\Http\Model\Service\TypesModel;
+use App\Http\Model\Service\UsersModel;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -50,6 +52,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('Posts',function(){
             return new PostsModel();
+        });
+        $this->app->singleton('Users',function(){
+            return new UsersModel();
+        });
+        $this->app->singleton('UsersTypes',function(){
+            return new TypesModel();
         });
     }
 }

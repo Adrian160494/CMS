@@ -16,6 +16,10 @@ Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
 
+Route::get('/users','Users\UsersController@index')->name('users.index');
+Route::any('/users/create','Users\UsersController@create')->name('users.userscreate');
+Route::any('/users/config/{id}','Users\UsersController@konfiguracja')->name('users.usersconfig');
+
 Route::get('/projekty','Manage\ProjektyController@index')->name('projekty.index');
 Route::any('/projekty/create','Manage\ProjektyController@create')->name('projekty.create');
 Route::any('/projekty/konfiguracja/{id_projektu?}','Manage\ProjektyController@konfiguracja')->name('projekty.konfiguracja');

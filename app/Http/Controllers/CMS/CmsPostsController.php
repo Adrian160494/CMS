@@ -12,6 +12,7 @@ use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
 use Illuminate\Database\Query\Grammars\SQLiteGrammar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use League\Flysystem\Config;
 
 class CmsPostsController extends Controller {
