@@ -34,7 +34,7 @@ Route::get('/projekty','Manage\ProjektyController@index')->name('projekty');
 Route::get('/projekty/list','Manage\ProjektyController@projekty')->name('projekty.projekty');
 Route::any('/projekty/create','Manage\ProjektyController@create')->name('projekty.create');
 Route::any('/projekty/konfiguracja/{id_projektu?}','Manage\ProjektyController@konfiguracja')->name('projekty.konfiguracja');
-Route::get('/projekty/destroy/{id?}','Manage\ProjektyController@destroy')->name('projekty_destroy');
+Route::get('/projekty/destroy/{id?}','Manage\ProjektyController@destroy')->name('projekty.delete');
 
 Route::any('/projekty/manage','Manage\ProjektyController@manage')->name('projekty.manage');
 Route::any('/projekty/manage/addPage/{id?}','Manage\ProjektyController@addpage')->name('projekty.manage.addpage');

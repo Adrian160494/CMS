@@ -57,8 +57,8 @@
 
                     </td>
                     <td>
-                        @if(resolve('checkPermission')->checkPermission('projekty_destroy',Session::get('account_type')))
-                            <a href="{{ url()->route('projekty_destroy',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                        @if(resolve('checkPermission')->checkPermission('projekty.delete',Session::get('account_type')))
+                            <a href="{{ url()->route('projekty.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         @endif
                     </td>
                 </tr>
