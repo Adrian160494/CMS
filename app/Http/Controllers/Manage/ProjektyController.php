@@ -27,10 +27,16 @@ class ProjektyController extends Controller
      */
     public function index(Request $request)
     {
-        $request->getSession()->put('active','projekty');
-        $projekty = ProjektyModel::getProjekty();
         $request->getSession()->put('activeMain','projekty');
-        return view('projekty/index',array('projekty'=>$projekty));
+        $request->getSession()->put('active','null');
+        return view('projekty/index',array(
+        ));
+    }
+
+    public function projekty(Request $request){
+        $projekty = ProjektyModel::getProjekty();
+        $request->getSession()->put('active','projektyList');
+        return view('projekty/projekty',array('projekty'=>$projekty));
     }
 
     /**

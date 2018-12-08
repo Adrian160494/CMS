@@ -94,9 +94,9 @@ class UsersController extends Controller {
     }
 
     public function delete(Request $request,$id){
-        $result = $this->size->delete($id);
+        $result = $this->users->delete($id);
         if($result){
-            $request->getSession()->flash('successMessage','Pomyślnie usunięto rozmiar!');
+            $request->getSession()->flash('successMessage','Pomyślnie usunięto użytkownika!');
             return redirect($_SERVER['HTTP_REFERER']);
         } else{
             $request->getSession()->flash('errorMessage','Wpisano błędne dane!');

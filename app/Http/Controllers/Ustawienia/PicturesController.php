@@ -23,7 +23,13 @@ class PicturesController extends Controller {
     }
 
     public function index(Request $request){
-        $request->getSession()->put('activeMain','ustawienia');
+        $request->getSession()->put('active','null');
+        return view('ustawienia/index',array(
+
+        ));
+    }
+
+    public function config(Request $request){
         $request->getSession()->put('active','grafiki');
         $size = $this->size->getSize();
         return view('ustawienia/pictures/index',array(

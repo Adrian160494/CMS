@@ -46,7 +46,7 @@
                             @else
                                 <a href="{{url()->route('cms.menusubmenu',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
-                                <a href="{{url()->route('cms.menu.config',array('id'=>$p->id))}}?id_projektu={{$p->id_projektu}}" class="btn-standard">Konfiguruj</a>
+                            <a href="{{url()->route('cms.menu.config',array('id'=>$p->id))}}?id_projektu={{$p->id_projektu}}" class="btn-standard">Konfiguruj</a>
                         </td>
                         <td>
                             @if($p->is_active)
@@ -66,8 +66,8 @@
                 </tbody>
             </table>
 
-            @else
-                <h2 style="text-align:center; font-style: italic; color: #999;">Brak wyników</h2>
-            @endif
+        @else
+            <h2 style="text-align:center; font-style: italic; color: #999;">Brak wyników</h2>
+        @endif
     </div>
 @endsection

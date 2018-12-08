@@ -24,6 +24,12 @@ class CmsMenuController extends Controller{
 
     public function index(Request $request){
         $request->getSession()->put('activeMain','menu');
+        $request->getSession()->put('active','null');
+        return view('cms/index',array(
+        ));
+    }
+
+    public function menu(Request $request){
         $request->getSession()->put('active','menu');
         $data = $request->all();
         $f = new ChooseProjectForm();

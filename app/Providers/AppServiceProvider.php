@@ -7,6 +7,7 @@ use App\Http\Model\Service\BanneryPositionsModel;
 use App\Http\Model\Service\CategoriesModel;
 use App\Http\Model\Service\FileModel;
 use App\Http\Model\Service\ImagesSizeModel;
+use App\Http\Model\Service\PermissionsModel;
 use App\Http\Model\Service\PictureSizeModel;
 use App\Http\Model\Service\PostsModel;
 use App\Http\Model\Service\TypesModel;
@@ -58,6 +59,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('UsersTypes',function(){
             return new TypesModel();
+        });
+        $this->app->singleton('Permissions',function(){
+            return new PermissionsModel();
         });
     }
 }

@@ -54,7 +54,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ url()->route('config.picturesdelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('users.usersdelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

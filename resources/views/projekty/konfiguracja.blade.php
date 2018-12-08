@@ -24,7 +24,7 @@
         <div class="col-md-6">
             <div class="col-md-12 heading-text">
                 <h2>Dodaj konfiguracje projektu</h2>
-                <a class="btn-back" href="{{url()->route('projekty.index')}}">Powrót</a>
+                <a class="btn-back" href="{{url()->route('projekty.projekty')}}">Powrót</a>
             </div>
             @include('layouts.form.form_template_table',['url'=>'/projekty/konfiguracja/'.$id_projektu,'form'=>$form])
         </div>

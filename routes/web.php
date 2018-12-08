@@ -19,12 +19,19 @@ Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
 
 Route::get('/users','Users\UsersController@index')->name('users.index');
 Route::any('/users/create','Users\UsersController@create')->name('users.userscreate');
+Route::any('/users/delete','Users\UsersController@delete')->name('users.usersdelete');
 Route::any('/users/config/{id}','Users\UsersController@konfiguracja')->name('users.usersconfig');
 Route::any('/users/activateAccount','Users\UsersController@activateAccount')->name('users.activate');
-Route::any('/users/permissions','Users\UsersController@permissions')->name('users.permissions');
+
+Route::any('/users/permissions','Users\PermissionsController@index')->name('users.permissions');
+Route::any('/users/permissions/changePermission/{id}','Users\PermissionsController@changePermission')->name('users.permissionschange');
 
 
-Route::get('/projekty','Manage\ProjektyController@index')->name('projekty.index');
+Route::any('/admin','Panel\AdminController@index')->name('panel.index');
+Route::any('/admin/addModules','Panel\AdminController@addModules')->name('panel.addModules');
+
+Route::get('/projekty','Manage\ProjektyController@index')->name('projekty');
+Route::get('/projekty/list','Manage\ProjektyController@projekty')->name('projekty.projekty');
 Route::any('/projekty/create','Manage\ProjektyController@create')->name('projekty.create');
 Route::any('/projekty/konfiguracja/{id_projektu?}','Manage\ProjektyController@konfiguracja')->name('projekty.konfiguracja');
 Route::get('/projekty/destroy/{id?}','Manage\ProjektyController@destroy')->name('projekty_destroy');
@@ -35,7 +42,8 @@ Route::any('/projekty/manage/deletePage/{id?}/{slug?}','Manage\ProjektyControlle
 Route::any('/projekty/manage/addContent','Manage\ProjektyController@addContent')->name('projekty.manage.addContent');
 Route::any('/projekty/manage/changeRoute','Manage\ProjektyController@changeRoute')->name('projekty.manage.changeRoute');
 
-Route::any('/cms/menu','CMS\CmsMenuController@index')->name('cms.menu');
+Route::any('/cms','CMS\CmsMenuController@index')->name('cms');
+Route::any('/cms/menu','CMS\CmsMenuController@menu')->name('cms.menu');
 Route::any('/cms/changeProjekt','CMS\CmsMenuController@changeProjekt')->name('cms.menu.changeProjekt');
 Route::any('/cms/menu/create','CMS\CmsMenuController@create')->name('cms.menucreate');
 Route::any('/cms/menu/edit/{id}/{id_projektu}','CMS\CmsMenuController@editMenu')->name('cms.menuedit');
@@ -63,10 +71,11 @@ Route::any('/cms/posts/create','CMS\CmsPostsController@create')->name('cms.posts
 Route::get('/cms/posts/changeActivity/{id}','CMS\CmsPostsController@changeActivity')->name('cms.posts.activity');
 Route::any('/cms/posts/delete/{id}','CMS\CmsPostsController@delete')->name('cms.posts.delete');
 Route::any('/cms/posts/edit/{id}','CMS\CmsPostsController@edit')->name('cms.posts.edit');
-Route::any('/configuration/pictures','Ustawienia\PicturesController@index')->name('config.pictures');
+
+Route::any('/configuration','Ustawienia\PicturesController@index')->name('config');
+Route::any('/configuration/pictures','Ustawienia\PicturesController@config')->name('config.pictures');
 Route::any('/configuration/pictures/create','Ustawienia\PicturesController@create')->name('config.picturescreate');
 Route::any('/configuration/pictures/delete/{id}','Ustawienia\PicturesController@delete')->name('config.picturesdelete');
-
 
 Route::any('/configuration/categories','Ustawienia\CategoriesController@index')->name('config.categories');
 Route::any('/configuration/categories/create','Ustawienia\CategoriesController@create')->name('config.categoriescreate');

@@ -31,6 +31,7 @@ class LoginController extends Controller
                $request->getSession()->put('userAuth',$username.'_'.$data['_token']);
                $request->getSession()->flash('successMessage','Logowanie przebiegło pomyślnie!');
                $request->getSession()->put('username',$username);
+               $request->getSession()->put('account_type',$user[0]->account_type);
                return redirect('/manage');
            } else {
                $request->getSession()->flash('errorMessage','Podano błędne dane');
@@ -64,6 +65,8 @@ class LoginController extends Controller
     public function logout(Request $request){
         $session = $request->getSession();
         $session->forget('userAuth');
+        $session->forget('username');
+        $session->forget('account_type');
         $request->getSession()->flash('successMessage','Wylogowywanie przebiegło pomyślnie!');
         return redirect('/');
     }

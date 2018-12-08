@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Route;
 
 class Controller extends BaseController
 {
@@ -17,6 +18,7 @@ class Controller extends BaseController
     function __construct()
     {
         $this->middleware('checkUserAuth')->except(array('login','activateAccount','setPassword'));
+        $this->middleware('checkPermission')->except(array('login','activateAccount','setPassword'));
     }
 
     public function getUploadDirectory(){
@@ -96,6 +98,10 @@ class Controller extends BaseController
         } else {
             return null;
         }
+    }
+
+    public function addPermissions(){
+
     }
 
 
