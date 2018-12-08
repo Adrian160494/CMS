@@ -12,12 +12,14 @@ class User {
     protected $username;
     protected $email;
     protected $type;
+    protected $token;
 
-    public function __construct($username,$email,$type)
+    public function __construct($username,$email,$type,$token)
     {
         $this->username = $username;
         $this->email = $email;
         $this->type = $type;
+        $this->token = $token;
     }
 
     /**
@@ -58,6 +60,22 @@ class User {
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 
     /**

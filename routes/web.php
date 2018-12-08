@@ -13,12 +13,16 @@
 
 Route::any('/', "Auth\LoginController@login")->name('loginAction');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
+Route::any('/setPassword','Auth\LoginController@setPassword')->name('setPassword');
 
 Route::get('/manage','Manage\ManageController@index')->name('loggedIn');
 
 Route::get('/users','Users\UsersController@index')->name('users.index');
 Route::any('/users/create','Users\UsersController@create')->name('users.userscreate');
 Route::any('/users/config/{id}','Users\UsersController@konfiguracja')->name('users.usersconfig');
+Route::any('/users/activateAccount','Users\UsersController@activateAccount')->name('users.activate');
+Route::any('/users/permissions','Users\UsersController@permissions')->name('users.permissions');
+
 
 Route::get('/projekty','Manage\ProjektyController@index')->name('projekty.index');
 Route::any('/projekty/create','Manage\ProjektyController@create')->name('projekty.create');

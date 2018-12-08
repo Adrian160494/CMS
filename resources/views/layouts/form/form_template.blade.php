@@ -14,6 +14,8 @@
                 {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                 @elseif($v['type'] == 'checkbox')
                 {{ Form::checkbox($v['name'],'false') }}
+            @elseif($v['type'] == 'hidden')
+                    {{ Form::hidden($v['name'],$v['value']) }}
                 @endif
         @endforeach
     </div>

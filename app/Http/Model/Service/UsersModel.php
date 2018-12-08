@@ -22,9 +22,6 @@ class UsersModel extends BaseModelService {
     }
 
     public function insert($data){
-        if(isset($data['_token'])){
-            unset($data['_token']);
-        }
         $sql = "INSERT INTO ".self::$table." (";
         $sql_a = ") VALUES (";
         $data_count = count($data);
@@ -45,10 +42,7 @@ class UsersModel extends BaseModelService {
         return $result;
     }
 
-    public function update($data,$id){
-        if(isset($data['_token'])){
-            unset($data['_token']);
-        }
+    public function update($data,$email){
         $sql = "UPDATE ".self::$table." SET ";
         $data_count = count($data);
         $counter = 0;
@@ -56,9 +50,9 @@ class UsersModel extends BaseModelService {
             foreach($data as $k => $v ){
                 $counter++;
                 if($counter == $data_count){
-                    $sql = $sql." ".$k." = ".$v.", ";
-                } else {
                     $sql = $sql." ".$k." = ".$v." ";
+                } else {
+                    $sql = $sql." ".$k." = ".$v.", ";
                 }
             }
         } else{
@@ -67,7 +61,7 @@ class UsersModel extends BaseModelService {
             }
         }
 
-        $sql = $sql." WHERE id=".$id;
+        $sql = $sql." WHERE email='".$email."'";
         $result = DB::update($sql);
         return $result;
     }

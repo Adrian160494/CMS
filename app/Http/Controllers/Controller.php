@@ -16,7 +16,7 @@ class Controller extends BaseController
 
     function __construct()
     {
-        $this->middleware('checkUserAuth')->except('login');
+        $this->middleware('checkUserAuth')->except(array('login','activateAccount','setPassword'));
     }
 
     public function getUploadDirectory(){

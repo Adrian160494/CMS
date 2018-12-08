@@ -14,4 +14,9 @@ class TypesModel extends BaseModelService{
         }
         return $array;
     }
+
+    public function getTypeById($id){
+        $result = DB::select("SELECT type FROM ".self::$table." WHERE id=".$id);
+        return $result;
+    }
 }
