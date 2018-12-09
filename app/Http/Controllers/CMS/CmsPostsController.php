@@ -61,6 +61,17 @@ class CmsPostsController extends Controller {
         );
     }
 
+    public function changeActivity(Request $request,$id){
+        $result = $this->posts->changeActivity($id);
+        if($result){
+            $request->getSession()->flash('successMessage','Aktywowano wpis!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        } else{
+            $request->getSession()->flash('successMessage','Deaktywowano wpis!');
+            return redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
     public function changeProjekt(Request $request){
         if($request->getMethod() == "POST"){
             $id_projektu = $request->all()['select'];
@@ -106,10 +117,21 @@ class CmsPostsController extends Controller {
         $form = $array['form'];
         $form = $this->fillTheForm($post[0],$form);
         if($request->getMethod() == "POST"){
-
+            $data = $request->all();
+            $data['id_category'] = $data['category'];
+            unset($data['category']);
+            $result = $this->posts->update($data,$id);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie zaktualizowany dane!');
+                return redirect('/cms/posts');
+            } else{
+                $request->getSession()->flash('errorMessage','Nie można zakutalizować danych');
+                return redirect('/cms/posts');
+            }
         }
         return view('cms/posts/edit',array(
             'form'=>$form,
+            'id'=>$id,
             'content'=>$post[0]->description
         ));
     }

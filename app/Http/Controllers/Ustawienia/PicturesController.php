@@ -23,6 +23,7 @@ class PicturesController extends Controller {
     }
 
     public function index(Request $request){
+        $request->getSession()->put('activeMain','ustawienia');
         $request->getSession()->put('active','null');
         return view('ustawienia/index',array(
 

@@ -11,7 +11,7 @@
         <div class="col-md-8 addings">
         </div>
         <div class="col-md-4 addings">
-            <a href="{{url()->route('config.categoriescreate')}}" class="btn-add">Dodaj</a>
+            <a href="{{url()->route('config.categories.create')}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -36,13 +36,13 @@
                         </td>
                         <td>
                             @if($p->is_active)
-                                <a href="{{url()->route('config.categoriesActivity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
+                                <a href="{{url()->route('config.categories.Activity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
                             @else
-                                <a href="{{url()->route('config.categoriesActivity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
+                                <a href="{{url()->route('config.categories.Activity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
                         </td>
                         <td>
-                            <a href="{{ url()->route('config.categoriesdelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('config.categories.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

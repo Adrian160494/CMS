@@ -23,7 +23,7 @@ class checkPermission
         $action =$route->action['as'];
         $result = app()->make('Permissions')->getPermissionByActionAndType($action,$request->getSession()->get('account_type'));
         if(!$result[0]->permission){
-            $request->getSession()->flash('infoMessage','Nie masz uprawnień do oglądania tej zakładki!');
+            $request->getSession()->flash('infoMessage','Nie masz uprawnień do wykonania tej akcji!');
             return redirect($_SERVER['HTTP_REFERER']);
         }
         return $next($request);

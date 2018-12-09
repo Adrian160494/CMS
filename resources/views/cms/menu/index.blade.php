@@ -15,7 +15,7 @@
 
         </div>
         <div class="col-md-4 addings">
-            <a href="{{url()->route('cms.menucreate')}}?id_projektu={{$id_projektu}}" class="btn-add">Dodaj</a>
+            <a href="{{url()->route('cms.menu.create')}}?id_projektu={{$id_projektu}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -42,24 +42,24 @@
                         </td>
                         <td>
                             @if($p->czy_submenu)
-                                <a href="{{url()->route('cms.menusubmenu',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
+                                <a href="{{url()->route('cms.menu.submenu',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
                             @else
-                                <a href="{{url()->route('cms.menusubmenu',array('id'=>$p->id))}}" class="btn-no">Nie</a>
+                                <a href="{{url()->route('cms.menu.submenu',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
                             <a href="{{url()->route('cms.menu.config',array('id'=>$p->id))}}?id_projektu={{$p->id_projektu}}" class="btn-standard">Konfiguruj</a>
                         </td>
                         <td>
                             @if($p->is_active)
-                                <a href="{{url()->route('cms.menuactivity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
+                                <a href="{{url()->route('cms.menu.activity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
                             @else
-                                <a href="{{url()->route('cms.menuactivity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
+                                <a href="{{url()->route('cms.menu.activity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
                         </td>
                         <td>
-                            <a href="{{url()->route('cms.menuedit',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-edit">Edytuj</a>
+                            <a href="{{url()->route('cms.menu.edit',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-edit">Edytuj</a>
                         </td>
                         <td>
-                            <a href="{{ url()->route('cms.menudelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('cms.menu.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

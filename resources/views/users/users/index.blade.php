@@ -11,7 +11,7 @@
         <div class="col-md-8 addings">
         </div>
         <div class="col-md-4 addings">
-            <a href="{{url()->route('users.userscreate')}}" class="btn-add">Dodaj</a>
+            <a href="{{url()->route('users.user.create')}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -54,7 +54,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ url()->route('users.usersdelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('users.user.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

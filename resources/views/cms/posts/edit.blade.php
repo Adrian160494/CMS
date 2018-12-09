@@ -6,6 +6,6 @@
         <h2>Edytuj wpis</h2>
         <a class="btn-back" href="{{url()->route('cms.posts')}}">Powrót</a>
     </div>
-    @include('layouts.form.form_template_page_content',['url'=>'/cms/posts/edit','form'=>$form,'description'=>$content])
+    @include('layouts.form.form_template_page_content',['url'=>'/cms/posts/edit/'.$id,'form'=>$form,'description'=>$content])
 
 @endsection

@@ -6,8 +6,8 @@
         <div class="col-md-7">
             <div class="navigation navbar  nav-main">
                 <ul class="navbar-nav navv">
-                    @if(resolve('checkPermission')->checkPermission('projekty',Session::get('account_type')))
-                        <li @if(Session::get('activeMain') == 'projekty') class="active" @endif><a href="{{url()->route('projekty')}}">Projekty</a> </li>
+                    @if(resolve('checkPermission')->checkPermission('projects',Session::get('account_type')))
+                        <li @if(Session::get('activeMain') == 'projekty') class="active" @endif><a href="{{url()->route('projects')}}">Projekty</a> </li>
                     @endif
                         @if(resolve('checkPermission')->checkPermission('cms',Session::get('account_type')))
                             <li @if(Session::get('activeMain') == 'menu') class="active" @endif><a href="{{url()->route('cms')}}">CMS</a> </li>

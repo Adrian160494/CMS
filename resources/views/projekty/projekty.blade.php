@@ -8,9 +8,7 @@
 
         </div>
         <div class="col-md-4 addings">
-            @if(resolve('checkPermission')->checkPermission('projekty.create',Session::get('account_type')))
-                <a href="{{url()->route('projekty.create')}}" class="btn-add">Dodaj</a>
-            @endif
+            <a href="{{url()->route('projects.projects.create')}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -46,20 +44,13 @@
                         @endif
                     </td>
                     <td>
-                        @if(resolve('checkPermission')->checkPermission('projekty.konfiguracja',Session::get('account_type')))
-                            <a href="{{url()->route('projekty.konfiguracja',array('id_projekty'=>$p->id)) }}" class="btn-standard">Konfiguracja</a>
-                        @endif
+                            <a href="{{url()->route('projects.projects.config',array('id_projekty'=>$p->id)) }}" class="btn-standard">Konfiguracja</a>
                     </td>
                     <td>
-                        @if(resolve('checkPermission')->checkPermission('projekty.create',Session::get('account_type')))
                             <a href="#" class="btn-edit">Edytuj</a>
-                        @endif
-
                     </td>
                     <td>
-                        @if(resolve('checkPermission')->checkPermission('projekty.delete',Session::get('account_type')))
-                            <a href="{{ url()->route('projekty.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
-                        @endif
+                            <a href="{{ url()->route('projects.projects.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                     </td>
                 </tr>
             @endforeach

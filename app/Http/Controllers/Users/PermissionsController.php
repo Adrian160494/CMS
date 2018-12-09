@@ -33,6 +33,7 @@ class PermissionsController extends Controller {
         $request->getSession()->put('active','permissions');
         $types = $this->types->getAllTypes();
         $resultPermissions = array();
+        $lastResult = array();
         $permissions = $this->permissions->getPermissions();
         foreach($types as $t){
             $resultPermissions[$t->type] = array();
@@ -40,8 +41,26 @@ class PermissionsController extends Controller {
         foreach($permissions as $p){
             array_push($resultPermissions[$p->type],$p);
         }
+        $array = '';
+        $count = 0;
+        foreach ($permissions as $r){
+            if(empty($array)){
+                $count++;
+                $array =array('action'=>$r->action,'name'=>$r->name,'module'=>$r->module,'permissions'=>array());
+                $array['permissions'][$r->account_type]=array('permission'=>$r->permission,'id'=>$r->id,'account_type'=>$r->account_type);
+            } else if($r->action == $array['action']) {
+                $count++;
+                $array['permissions'][$r->account_type]=array('permission'=>$r->permission,'id'=>$r->id,'account_type'=>$r->account_type);
+            }
+            if($count == 4){
+                array_push($lastResult,$array);
+                $array = '';
+                $count = 0;
+            }
+        }
+
         return view('users/permissions/index',array(
-            'permissions'=>$resultPermissions,
+            'permissions'=>$lastResult,
         ));
     }
 

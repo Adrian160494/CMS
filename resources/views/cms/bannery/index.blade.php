@@ -41,20 +41,20 @@
                             {{$p->nazwa}}
                         </td>
                         <td>
-                            <a href="{{url()->route('cms.banneryconfig',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-standard">Konfiguruj</a>
+                            <a href="{{url()->route('cms.bannery.config',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-standard">Konfiguruj</a>
                         </td>
                         <td>
                             @if($p->is_active)
-                                <a href="{{url()->route('cms.banneryactivity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
+                                <a href="{{url()->route('cms.bannery.activity',array('id'=>$p->id))}}" class="btn-yes">Tak</a>
                             @else
-                                <a href="{{url()->route('cms.banneryactivity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
+                                <a href="{{url()->route('cms.bannery.activity',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
                         </td>
                         <td>
-                            <a href="{{url()->route('cms.menuedit',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-edit">Edytuj</a>
+                            <a href="{{url()->route('cms.menu.edit',array('id'=>$p->id,'id_projektu'=>$p->id_projektu))}}" class="btn-edit">Edytuj</a>
                         </td>
                         <td>
-                            <a href="{{ url()->route('cms.bannerydelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('cms.bannery.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach

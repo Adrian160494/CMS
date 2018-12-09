@@ -8,7 +8,7 @@ class ProjektyModel extends BaseModel {
     protected static $table = "cms_projekty";
 
     public static function getProjekty(){
-        $result = DB::select("SELECT * FROM ".self::$table." WHERE 1= 1");
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE 1 = 1");
         return $result;
     }
 

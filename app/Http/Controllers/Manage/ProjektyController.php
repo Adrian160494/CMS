@@ -129,7 +129,7 @@ class ProjektyController extends Controller
         $id = $request->route('id');
         ProjektyModel::removeProjekt($id);
         $request->getSession()->flash('successMessage','Pomyślnie usunięto projekt z listy!');
-        return redirect("/projekty");
+        return redirect("/projekty/list");
     }
 
     /**

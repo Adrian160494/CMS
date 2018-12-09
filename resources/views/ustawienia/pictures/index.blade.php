@@ -11,7 +11,7 @@
         <div class="col-md-8 addings">
         </div>
         <div class="col-md-4 addings">
-            <a href="{{url()->route('config.picturescreate')}}" class="btn-add">Dodaj</a>
+            <a href="{{url()->route('config.pictures.create')}}" class="btn-add">Dodaj</a>
         </div>
     </div>
     <div class="col-md-12 table-wrap">
@@ -38,7 +38,7 @@
                             {{$p->height}}
                         </td>
                         <td>
-                            <a href="{{ url()->route('config.picturesdelete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
+                            <a href="{{ url()->route('config.pictures.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>
                         </td>
                     </tr>
                 @endforeach
