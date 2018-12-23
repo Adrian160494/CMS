@@ -30,4 +30,24 @@ class ProjektyModel extends BaseModel {
         $result = DB::delete("DELETE FROM ".self::$table." WHERE id=".$id);
         return $result;
     }
+    public static function update($data,$id){
+        if(isset($data['_token'])){
+            unset($data['_token']);
+        }
+        $sql = "UPDATE ".self::$table." SET ";
+        $data_count = count($data);
+        $counter = 0;
+        foreach($data as $k => $v ){
+            $counter++;
+            if($counter == $data_count){
+                $sql = $sql." `".$k."` = '".$v."' ";
+            } else {
+                $sql = $sql." `".$k."` = '".$v."', ";
+            }
+        }
+        $sql = $sql." WHERE id=".$id;
+        $result = DB::update($sql);
+
+        return $result;
+    }
 }

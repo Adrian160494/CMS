@@ -31,7 +31,7 @@
                        </div>
                    @elseif($v['type'] == 'checkbox')
                        <div class="col-md-9">
-                           {{ Form::checkbox($v['name']) }}
+                           {{ Form::checkbox($v['name'],$v['value']) }}
                        </div>
                    @elseif($v['type'] == 'hidden')
                        <div class="col-md-9">

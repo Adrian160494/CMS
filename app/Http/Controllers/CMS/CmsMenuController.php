@@ -13,6 +13,7 @@ use App\Http\Form\AddMainMenuPositionForm;
 use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\CmsMenuDodajForm;
 use App\Http\Form\CmsMenuEdytujForm;
+use App\Http\Form\EditMainMenuPositionForm;
 use App\Http\Model\MenuModel;
 use App\Http\Model\MenuPositionModel;
 use App\Http\Model\PagesModel;
@@ -215,6 +216,46 @@ class CmsMenuController extends Controller{
             'id_menu'=>$id,
             'id_projektu'=>$id_projektu
         ));
+    }
+
+    public function editPosition(Request $request,$id){
+        $id_projektu = $request->query('id_projektu');
+        $id_menu = $request->query('id_menu');
+        $f = new EditMainMenuPositionForm();
+        $form = $f::prepareForm();
+        $position = MenuPositionModel::getPositionMenyById($id);
+        $form = $this->fillEditPosition($form,$position,$id_projektu);
+        if($request->getMethod() == "POST"){
+            $data = $request->all();
+            $result = MenuPositionModel::update($data,$id);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie zaktualizowano pozycje menu!');
+                return redirect('/cms/menu/config/'.$id_menu.'/?id_projektu='.$id_projektu);
+            } else{
+                $request->getSession()->flash('errorMessage','Wpisano błędne dane!');
+                return redirect('/cms/menu/config/'.$id_menu.'/?id_projektu='.$id_projektu);
+            }
+        }
+        return view('cms.menu.editPosition',array(
+            'form'=>$form,
+            'id_projektu'=>$id_projektu,
+            'id_menu'=>$id_menu,
+            'id'=>$id,
+        ));
+    }
+
+    public function fillEditPosition($form,$position,$id){
+        $pages_choose = array();
+        $pages = PagesModel::getPagesById($id);
+        $pages_choose[''] = "Wybierz";
+        foreach($pages as $p){
+            $pages_choose[$p->route] = $p->nazwa;
+        }
+        $form[0]['input']['value'] = $position[0]->nazwa;
+        $form[3]['input']['value'] = $position[0]->url;
+        $form[2]['input']['values']= $pages_choose;
+        $form[1]['input']['value'] = $position[0]->czy_submenu;
+        return $form;
     }
 
 }

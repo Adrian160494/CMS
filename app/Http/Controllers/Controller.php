@@ -18,7 +18,7 @@ class Controller extends BaseController
     function __construct()
     {
         $this->middleware('checkUserAuth')->except(array('login','activateAccount','setPassword'));
-      //  $this->middleware('checkPermission')->except(array('login','activateAccount','setPassword'));
+        $this->middleware('checkPermission')->except(array('login','activateAccount','setPassword'));
     }
 
     public function getUploadDirectory(){
@@ -40,6 +40,7 @@ class Controller extends BaseController
             $data = array(
                 'nazwa' => $fileName,
                 'sciezka'=> $sciezka,
+                'typ'=>$fileType
             );
 
         if(!is_dir($katalog)){
@@ -52,7 +53,7 @@ class Controller extends BaseController
                 $sizes = app()->make('Size')->getSize();
                 foreach($sizes as $s){
                     $newPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/'.$s->width.'x'.$s->height.'-'.$date.$fileName;
-                    $this->resize($uploadPath,$newPath,$s->width,$s->height);
+                    $this->resize($uploadPath,$newPath,$s->width,$s->height,$fileType);
                 }
 
                 foreach($sizes as $s){
@@ -68,10 +69,18 @@ class Controller extends BaseController
 
     }
 
-    public function resize($picture,$newPath,$width,$height){
+    public function resize($picture,$newPath,$width,$height,$type){
 
         if(!empty($picture)){
-            $source_image = imagecreatefromjpeg($picture);
+            switch($type) {
+                case "image/jpeg":
+                    $source_image = imagecreatefromjpeg($picture);
+                    break;
+                case "image/png":
+                    $source_image = imagecreatefrompng($picture);
+
+            }
+
             $source_imagex = imagesx($source_image);
             $source_imagey = imagesy($source_image);
 

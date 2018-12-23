@@ -405,7 +405,6 @@ label {
     padding: 0;
     list-style-type: none; }
     .manage-panel .sidebar-pages .pages-content ul .custom-element, .menu-panel .sidebar-pages .pages-content ul .custom-element {
-      background: #181a52ba;
       position: relative; }
       .manage-panel .sidebar-pages .pages-content ul .custom-element p, .menu-panel .sidebar-pages .pages-content ul .custom-element p {
         position: absolute;
@@ -426,28 +425,30 @@ label {
     .manage-panel .sidebar-pages .pages-content ul li, .menu-panel .sidebar-pages .pages-content ul li {
       margin: 5px 0;
       width: 100%;
-      background: #181a527d;
+      /* background: #181a527d; */
       padding: 10px 0;
-      -webkit-border-radius: 4px;
+      border: 1px solid #b1b1b1;
+      /* -webkit-border-radius: 4px; */
       -moz-border-radius: 4px;
-      border-radius: 4px; }
+      /* color: #000; */
+      /* border-radius: 4px; */ }
       .manage-panel .sidebar-pages .pages-content ul li:hover, .menu-panel .sidebar-pages .pages-content ul li:hover {
-        background: #999; }
+        background: #d7d7d7; }
       .manage-panel .sidebar-pages .pages-content ul li .delete-page, .menu-panel .sidebar-pages .pages-content ul li .delete-page {
         position: absolute;
         right: 5px;
-        top: -10px; }
+        top: -12px; }
       .manage-panel .sidebar-pages .pages-content ul li a, .menu-panel .sidebar-pages .pages-content ul li a {
         padding: 20px 10px;
-        color: #fff; }
+        color: #2f2c2c; }
 
 .manage-panel .main-content .page-url-route, .menu-panel .main-content .page-url-route {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  margin: 20px;
-  background: #eee; }
+  margin: 8px;
+  /* background: #eee; */ }
   .manage-panel .main-content .page-url-route p, .menu-panel .main-content .page-url-route p {
     margin: 0; }
 
@@ -456,6 +457,10 @@ label {
   flex-direction: row;
   justify-content: center;
   align-items: center; }
+
+.manage-panel .main-content .page-content, .menu-panel .main-content .page-content {
+  border-top: 1px solid #cccccc;
+  padding-top: 10px; }
 
 .menu-panel {
   position: relative; }
@@ -470,17 +475,30 @@ label {
       background: #f0f0fb;
       width: 100%;
       height: 40px;
-      padding: 10px 0;
-      -webkit-border-radius: 4px;
+      padding: 10px 16px;
+      /* -webkit-border-radius: 4px; */
       -moz-border-radius: 4px;
-      border-radius: 4px;
+      /* border-radius: 4px; */
+      position: relative;
+      border: 1px solid #bdb6b6;
       position: relative; }
+      .menu-panel .menu-content ul li .url {
+        position: relative;
+        z-index: 10;
+        color: #808080;
+        bottom: 15px;
+        right: -142px;
+        font-size: 10px; }
       .menu-panel .menu-content ul li:hover {
         background: #eee; }
       .menu-panel .menu-content ul li .add-submenu {
         position: absolute;
         top: 10px;
-        right: 40px; }
+        right: 65px; }
+      .menu-panel .menu-content ul li .edit-submenu {
+        position: absolute;
+        top: 10px;
+        right: 35px; }
       .menu-panel .menu-content ul li .delete-submenu {
         position: absolute;
         top: 10px;

@@ -32,6 +32,7 @@ Route::any('/admin/addModules','Panel\AdminController@addModules')->name('panel.
 Route::get('/projekty','Manage\ProjektyController@index')->name('projects');
 Route::get('/projekty/list','Manage\ProjektyController@projekty')->name('projects.projects.list');
 Route::any('/projekty/create','Manage\ProjektyController@create')->name('projects.projects.create');
+Route::any('/projekty/edit/{id}','Manage\ProjektyController@edit')->name('projects.projects.edit');
 Route::any('/projekty/konfiguracja/{id_projektu?}','Manage\ProjektyController@konfiguracja')->name('projects.projects.config');
 Route::get('/projekty/destroy/{id?}','Manage\ProjektyController@destroy')->name('projects.projects.delete');
 
@@ -52,6 +53,8 @@ Route::get('/cms/menu/changeActivity/{id}','CMS\CmsMenuController@changeActivity
 Route::get('/cms/menu/changeSubmenu/{id}','CMS\CmsMenuController@changeSubmenu')->name('cms.menu.submenu');
 Route::any('/cms/menu/addPosition/{id}/{id_parent?}','CMS\CmsMenuController@dodajPozycjeMenu')->name('cms.menu.addPosition');
 Route::any('/cms/menu/removePosition/{id}/{id_parent?}','CMS\CmsMenuController@delete')->name('cms.menu.removePosition');
+Route::any('/cms/menu/editPosition/{id}','CMS\CmsMenuController@editPosition')->name('cms.menu.editPosition');
+
 
 Route::any('/cms/bannery','CMS\CmsBanneryController@index')->name('cms.bannery');
 Route::any('/cms/bannery/changeProjekt','CMS\CmsBanneryController@changeProjekt')->name('cms.bannery.changeProjekt');

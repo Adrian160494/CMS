@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="menu-content">
-                    @include('layouts.menu.standardMenu',array('menuPositions'=>$menuPositions,'id_projektu'=>$id_projektu))
+                    @include('layouts.menu.standardMenu',array('menuPositions'=>$menuPositions,'id_projektu'=>$id_projektu,'id_menu'=>$id_menu))
                 </div>
             </div>
         </div>

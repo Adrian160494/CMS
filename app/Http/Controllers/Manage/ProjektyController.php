@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manage;
 use App\Http\Form\AddPageForm;
 use App\Http\Form\ChangeRoutePageForm;
 use App\Http\Form\ChooseProjectForm;
+use App\Http\Form\EditProjektForm;
 use App\Http\Form\KonfiguracjaForm;
 use App\Http\Form\PageContentForm;
 use App\Http\Form\ProjektDodajForm;
@@ -101,21 +102,34 @@ class ProjektyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $f = new EditProjektForm();
+        $form = $f::prepareForm();
+        $projekt = ProjektyModel::getProjektById($id);
+        $form = $this->fillEditForm($form, $projekt);
+        if($request->getMethod() == "POST"){
+            $data = $request->all();
+            $result = ProjektyModel::update($data,$id);
+            if($result){
+                $request->getSession()->flash('successMessage','Pomyślnie dodano nowy projekt!');
+                return redirect('/projekty/list');
+            } else{
+                $request->getSession()->flash('errorMessage','Wpisano błędne dane!');
+                return redirect('/projekty/edit/'.$id);
+            }
+
+        }
+        return view('projekty.edit',array(
+            'form'=>$form,
+            'id'=>$id,
+        ));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function fillEditForm($form,$projekt){
+        $form[0]['input']['value'] = $projekt[0]->nazwa;
+        $form[1]['input']['value'] = $projekt[0]->url;
+        return $form;
     }
 
     /**

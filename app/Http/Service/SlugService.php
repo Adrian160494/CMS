@@ -11,7 +11,7 @@ namespace App\Http\Service;
 class SlugService{
 
     public static function createSlug($name){
-        $slug = str_replace(" ","_",mb_strtolower($name));
+        $slug = str_replace("-","_",str_replace(" ","_",mb_strtolower($name)));
         return $slug;
     }
 }

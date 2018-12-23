@@ -106,6 +106,7 @@ class CmsBanneryController extends Controller {
             $banneryEService = app()->make('banneryElements');
             $baner = app()->make('bannery')->selectWhere($id_baneru,false);
             $result = $this->uploadFile(SlugService::createSlug($baner[0]->nazwa));
+
             if($result != 0){
                 $params = $request->all();
                 $data = array(
@@ -118,7 +119,7 @@ class CmsBanneryController extends Controller {
                 $result2 = $banneryEService->insert($data);
                 if($result2){
                     $request->getSession()->flash('successMessage','Pomyślnie dodano element banneru');
-                    return redirect()->route('cms.banneryconfig',array('id'=>$id_baneru,'id_projektu'=>$id_projektu));
+                    return redirect()->route('cms.bannery.config',array('id'=>$id_baneru,'id_projektu'=>$id_projektu));
                 } else{
                     $request->getSession()->flash('errorMessage','Wystąpił błąd zapisu!');
                     return redirect($_SERVER['HTTP_REFERER']);
@@ -141,7 +142,7 @@ class CmsBanneryController extends Controller {
         $root = $_SERVER['DOCUMENT_ROOT'];
         $element = app()->make('banneryElements')->getElementById($id);
         $newPath = $root.str_replace('original-',$width.'x'.$height.'-',$element[0]->sciezka_plik);
-        $result = $this->resize($root.$element[0]->sciezka_plik,$newPath,$width,$height);
+        $result = $this->resize($root.$element[0]->sciezka_plik,$newPath,$width,$height,$element[0]->typ);
         app()->make('ImageSizes')->insert(array('id_picture'=>$element[0]->id_plik,'id_size'=>$id_size));
 
         if($result){

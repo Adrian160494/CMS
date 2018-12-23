@@ -47,7 +47,7 @@
                             <a href="{{url()->route('projects.projects.config',array('id_projekty'=>$p->id)) }}" class="btn-standard">Konfiguracja</a>
                     </td>
                     <td>
-                            <a href="#" class="btn-edit">Edytuj</a>
+                            <a href="{{url()->route('projects.projects.edit',array('id'=>$p->id)) }}" class="btn-edit">Edytuj</a>
                     </td>
                     <td>
                             <a href="{{ url()->route('projects.projects.delete',array('id'=>$p->id)) }}" class="btn-delete">Usuń</a>

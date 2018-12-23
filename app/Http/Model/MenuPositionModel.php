@@ -56,6 +56,11 @@ class MenuPositionModel extends BaseModel {
         return $menu;
     }
 
+    public static function getPositionMenyById($id){
+        $result = DB::select("SELECT * FROM ".self::$table." WHERE id=".$id);
+        return $result;
+    }
+
     public static function deletePositionMenu($id){
         $result = DB::delete("DELETE FROM ".self::$table." WHERE id=".$id.' OR id_parent_submenu='.$id);
         return $result;
@@ -85,23 +90,28 @@ class MenuPositionModel extends BaseModel {
         return $result;
     }
 
-    public static function update($data,$id){
-        if(isset($data['_token'])){
+    public static function update($data,$id)
+    {
+        if (isset($data['_token'])) {
             unset($data['_token']);
         }
-        $sql = "UPDATE ".self::$table." SET ";
+        if (isset($data['id_projektu'])) {
+            unset($data['id_projektu']);
+        }
+        $sql = "UPDATE " . self::$table . " SET ";
         $data_count = count($data);
         $counter = 0;
-        foreach($data as $k => $v ){
+        foreach ($data as $k => $v) {
             $counter++;
-            if($counter == $data_count){
-                $sql = $sql." ".$k." = ".$v.", ";
+            if ($counter == $data_count) {
+                $sql = $sql . " `" . $k . "` = '" . $v . "' ";
             } else {
-                $sql = $sql." ".$k." = ".$v." ";
+                $sql = $sql . " `" . $k . "` = '" . $v . "', ";
             }
         }
-        $sql = $sql." WHERE id=".$id;
+        $sql = $sql . " WHERE id=" . $id;
         $result = DB::update($sql);
+
         return $result;
     }
 }

@@ -25,7 +25,7 @@ class BanneryPositionsModel extends BaseModelService {
 
     public function getElementById($id){
         $result = DB::select('
-        SELECT cbe.*,cp.nazwa as plik,cp.id as id_pliku, cp.sciezka as sciezka_plik FROM '.self::$table.' as cbe
+        SELECT cbe.*,cp.nazwa as plik,cp.id as id_pliku, cp.sciezka as sciezka_plik, cp.typ as typ FROM '.self::$table.' as cbe
          LEFT JOIN '.self::$firstJoin.' as cp ON cbe.id_plik = cp.id
          WHERE cbe.id='.$id
         );

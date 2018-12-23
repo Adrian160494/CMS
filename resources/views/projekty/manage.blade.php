@@ -23,12 +23,12 @@
             <div class="pages-content">
                 <ul>
                 @foreach ($pages as $p)
-                        <li class="{{$p->slug == "main_page" ? 'custom-element' :'subpage'}}"><a href="{{url()->route('projects.manage')}}?id={{$p->id}}&page={{$p->nazwa}}&slug={{$p->slug}}">{{$p->nazwa}}<a style="display: {{$p->slug == "main_page"? 'none':'block'}}" class="delete-page" href="{{url()->route('projects.manage.deletepage',array('id'=>$p->id))}}"><img src="/img/rubbish-bin.svg" width="20"/> </a></a></li>
+                        <li class="{{$p->slug == "main_page" ? 'custom-element' :'subpage'}}"><a href="{{url()->route('projects.manage')}}?id={{$p->id}}&page={{$p->nazwa}}&slug={{$p->slug}}">{{$p->nazwa}}<a style="display: {{$p->slug == "main_page"? 'none':'block'}}" class="delete-page" href="{{url()->route('projects.manage.deletepage',array('id'=>$p->id))}}"><img src="/img/delete.png" width="20"/> </a></a></li>
                     @endforeach
                 </ul>
             </div>
         </div>
-        <div class="col-md-9 main-content">
+        <div class="col-md-9 main-content" style="background: rgba(250, 250, 250, 0.8);">
             <div class="page-url-route">
                 <div class="col-md-2">
                     <a class="btn btn-standard" href="http://{{$projektUrl}}{{$route}}">Zobacz</a>
