@@ -3,7 +3,7 @@ html {
   position: relative;
   width: 100%;
   min-height: 100%;
-  --color-blue: #1b1484ab;
+  --color-blue: #003041e6;
   --color-red: #f72c2cb8;
   --color-standard: #7c8a76; }
 
@@ -19,6 +19,11 @@ a {
   color: #fff; }
   a:hover {
     color: #eee; }
+
+.main-logo {
+  position: relative;
+  top: -10px;
+  left: -17px; }
 
 .addings {
   min-height: 60px;

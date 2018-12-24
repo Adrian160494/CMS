@@ -6,7 +6,8 @@ use App\Http\Form\AddNewPostForm;
 use App\Http\Form\ChooseProjectForm;
 use App\Http\Form\CmsBannerDodajForm;
 use App\Http\Form\CreateBanerElementForm;
-use App\Http\Form\EditPostForm;
+use App\Http\Form\EditPostFormBasic;
+use App\Http\Form\EditPostFormDetail;
 use App\Http\Model\BaneryModel;
 use App\Http\Model\ProjektyModel;
 use App\Http\Service\SlugService;
@@ -110,8 +111,10 @@ class CmsPostsController extends Controller {
     }
 
     public function edit(Request $request,$id){
-        $f = new EditPostForm();
+        $f = new EditPostFormBasic();
         $form = $f::prepareForm();
+        $f2 = new EditPostFormDetail();
+        $form2 = $f2::prepareForm();
         $post = $this->posts->getPostById($id);
         $array = $this->createPostSelectCategory($form);
         $form = $array['form'];
@@ -131,6 +134,7 @@ class CmsPostsController extends Controller {
         }
         return view('cms/posts/edit',array(
             'form'=>$form,
+            'form2'=>$form2,
             'id'=>$id,
             'content'=>$post[0]->description
         ));

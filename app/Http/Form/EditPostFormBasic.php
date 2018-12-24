@@ -8,7 +8,7 @@
 
 namespace App\Http\Form;
 
-class EditPostForm extends Form{
+class EditPostFormBasic extends Form{
     protected $form_name = 'edit_post_form';
     protected static $form_elements = array();
 
@@ -26,8 +26,8 @@ class EditPostForm extends Form{
             'input'=>Form::createSelect('category','custom-form-input','',''),
         ));
         array_push(self::$form_elements,array(
-            'label'=>Form::createLabel('Treść','','label-custom'),
-            'input'=>Form::createTextarea('textarea','description','','custom-form-input','','',100,17),
+            'label'=>Form::createLabel('Plik','','label-custom'),
+            'input'=>Form::createFile('file','file','Dodaj zdjęcie główne','custom-form-input','')
         ));
         array_push(self::$form_elements,array(
             'input'=>Form::createInput('submit','Dodaj','','btn-1 btn-long','')

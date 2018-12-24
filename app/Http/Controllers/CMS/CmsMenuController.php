@@ -80,6 +80,9 @@ class CmsMenuController extends Controller{
             if(!isset($data['is_active'])){
                 $data['is_active'] = 0;
             }
+            if($data['czy_submenu'] == 'on'){
+                $data['czy_submenu'] = 1;
+            }
             $this->validate($request,[
                 'nazwa'=>'required|unique:cms_menu',
                 'id_projektu'=>'required'
@@ -196,6 +199,9 @@ class CmsMenuController extends Controller{
             $data = $request->except('id_projektu');
             if($data['id_parent_submenu'] == ''){
                 unset($data['id_parent_submenu']);
+            }
+            if($data['czy_submenu'] == 'on'){
+                $data['czy_submenu'] = 1;
             }
             $this->validate($request,[
                 'nazwa'=>'required',

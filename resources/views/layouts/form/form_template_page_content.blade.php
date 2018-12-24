@@ -12,6 +12,10 @@
                         <div class="col-md-10">
                             {{ Form::text($v['name'],$v['value'],['class'=>$v['class']]) }}
                         </div>
+                    @elseif($v['type'] == 'file')
+                        <div class="col-md-10">
+                            {{ Form::file($v['name'],['class'=>$v['class']]) }}
+                        </div>
                     @elseif($v['type'] == 'textarea')
                         <div class="col-md-10">
                             <textarea name="{{$v['name']}}" class="{{$v['class']}}" cols="{{$v['cols']}}" rows="{{$v['rows']}}">

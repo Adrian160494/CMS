@@ -34,7 +34,7 @@
                         {{$p->nazwa}}
                     </td>
                     <td>
-                        {{$p->url}} <a href="http://{{$p->url}}" class="btn btn-standard">Podgląd</a>
+                        {{$p->url}} <a target="_blank" href="http://{{$p->url}}" class="btn btn-standard">Podgląd</a>
                     </td>
                     <td>
                         @if($p->is_active)

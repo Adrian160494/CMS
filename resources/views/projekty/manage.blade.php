@@ -31,7 +31,7 @@
         <div class="col-md-9 main-content" style="background: rgba(250, 250, 250, 0.8);">
             <div class="page-url-route">
                 <div class="col-md-2">
-                    <a class="btn btn-standard" href="http://{{$projektUrl}}{{$route}}">Zobacz</a>
+                    <a target="_blank" class="btn btn-standard" href="http://{{$projektUrl}}{{$route}}">Zobacz</a>
                 </div>
                 <div class="col-md-10 page-route-wrap">
                     <p>Adres: {{$projektUrl}}</p>

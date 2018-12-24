@@ -1,7 +1,7 @@
 <nav style="height: 100px;">
     <div class="col-md-12 navigation-bar">
         <div class="col-md-1">
-            <img src="/img/logo.png" width="70"/>
+            <img class="main-logo" src="/img/logo-alt.png" width="170"/>
         </div>
         <div class="col-md-7">
             <div class="navigation navbar  nav-main">

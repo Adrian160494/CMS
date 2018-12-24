@@ -26,6 +26,7 @@
                     <td width="50">Id</td>
                     <td>Nazwa</td>
                     <td>Submenu</td>
+                    <td width="50">Konfiguruj</td>
                     <td width="50">Aktywny</td>
                     <td width="50">Edytuj</td>
                     <td width="50">Usuń</td>
@@ -46,6 +47,8 @@
                             @else
                                 <a href="{{url()->route('cms.menu.submenu',array('id'=>$p->id))}}" class="btn-no">Nie</a>
                             @endif
+                        </td>
+                        <td>
                             <a href="{{url()->route('cms.menu.config',array('id'=>$p->id))}}?id_projektu={{$p->id_projektu}}" class="btn-standard">Konfiguruj</a>
                         </td>
                         <td>
