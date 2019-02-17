@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-md-9 main-content main-content-post edit-post-basic" style="background: rgba(250, 250, 250, 0.8);">
-            @include('layouts.form.form_template_page_content',['url'=>'/cms/posts/edit/'.$id,'form'=>$form,'description'=>$content])
+            @include('layouts.form.form_template_page_content',['url'=>'/cms/posts/edit/'.$id,'form'=>$form,'description'=>$content,'formfile' => 1,'image_src'=>$image_src])
         </div>
         <div class="col-md-9 main-content main-content-post edit-post-detail" style="background: rgba(250, 250, 250, 0.8);">
             @include('layouts.form.form_template_page_content',['url'=>'/cms/posts/edit/'.$id,'form'=>$form2,'description'=>$content])

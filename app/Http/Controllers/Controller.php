@@ -25,7 +25,7 @@ class Controller extends BaseController
         return $this->uploadDirectory;
     }
 
-    public function uploadFile($currentDir){
+    public function uploadFile($currentDir,$no_resize = false){
         $date = date("YmdHis");
         $fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
         $fileName = $_FILES['file']['name'];
@@ -37,9 +37,10 @@ class Controller extends BaseController
 
             $uploadPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/original-'.$date.$fileName;
             $sciezka = '/'.$this->uploadDirectory.'/'.$currentDir.'/original-'.$date.$fileName;
+            $sciezka_show = '/'.$this->uploadDirectory.'/'.$currentDir.'/show_image/original-'.$date.$fileName;
             $data = array(
                 'nazwa' => $fileName,
-                'sciezka'=> $sciezka,
+                'sciezka'=> $sciezka_show,
                 'typ'=>$fileType
             );
 
@@ -53,13 +54,16 @@ class Controller extends BaseController
                 $sizes = app()->make('Size')->getSize();
                 foreach($sizes as $s){
                     $newPath = $root.'/'.$this->uploadDirectory.'/'.$currentDir.'/'.$s->width.'x'.$s->height.'-'.$date.$fileName;
-                    $this->resize($uploadPath,$newPath,$s->width,$s->height,$fileType);
+                    if(!$no_resize){
+//                        $this->resize($uploadPath,$newPath,$s->width,$s->height,$fileType);
+                    }
+
                 }
 
                 foreach($sizes as $s){
-                    app()->make('ImageSizes')->insert(array('id_picture'=>$fileService->getFileBySciezka($sciezka)[0]->id,'id_size'=>$s->id));
+                    app()->make('ImageSizes')->insert(array('id_picture'=>$fileService->getFileBySciezka($sciezka_show)[0]->id,'id_size'=>$s->id));
                 }
-                return $fileService->getFileBySciezka($sciezka)[0]->id;
+                return $fileService->getFileBySciezka($sciezka_show)[0]->id;
             } else{
                 return 0;
             }

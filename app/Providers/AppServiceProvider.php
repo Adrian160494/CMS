@@ -6,6 +6,8 @@ use App\Http\Model\Service\BaneryModel;
 use App\Http\Model\Service\BanneryPositionsModel;
 use App\Http\Model\Service\CategoriesModel;
 use App\Http\Model\Service\FileModel;
+use App\Http\Model\Service\GalleryElementsModel;
+use App\Http\Model\Service\GalleryModel;
 use App\Http\Model\Service\ImagesSizeModel;
 use App\Http\Model\Service\PermissionsModel;
 use App\Http\Model\Service\PictureSizeModel;
@@ -62,6 +64,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('Permissions',function(){
             return new PermissionsModel();
+        });
+        $this->app->singleton('Galleries',function(){
+            return new GalleryModel();
+        });
+        $this->app->singleton('GalleriesElements',function(){
+            return new GalleryElementsModel();
         });
     }
 }

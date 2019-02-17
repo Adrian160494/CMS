@@ -23,7 +23,7 @@ class AddNewPostForm extends Form{
         ));
         array_push(self::$form_elements,array(
             'label'=>Form::createLabel('Kategoria','','label-custom'),
-            'input'=>Form::createSelect('category','custom-form-input','',''),
+            'input'=>Form::createSelect('id_category','custom-form-input','',''),
         ));
         array_push(self::$form_elements,array(
             'label'=>Form::createLabel('Treść','','label-custom'),

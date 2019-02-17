@@ -45,6 +45,8 @@ class CmsBanneryController extends Controller {
             $data['slug'] = SlugService::createSlug($data['nazwa']);
             if(!isset($data['is_active'])){
                 $data['is_active'] = 0;
+            } else {
+                $data['is_active'] = 1;
             }
             $this->validate($request,[
                 'nazwa'=>'required|unique:cms_bannery',
@@ -105,17 +107,31 @@ class CmsBanneryController extends Controller {
             $params = $request->all();
             $banneryEService = app()->make('banneryElements');
             $baner = app()->make('bannery')->selectWhere($id_baneru,false);
-            $result = $this->uploadFile(SlugService::createSlug($baner[0]->nazwa));
-
-            if($result != 0){
+            $result = null;
+            if($_FILES['file']['name']){
+                $result = $this->uploadFile(SlugService::createSlug($baner[0]->nazwa));
+            }
+//            if($result != 0){
                 $params = $request->all();
-                $data = array(
-                    'id_baneru'=>$id_baneru,
-                    'nazwa'=>$params['nazwa'],
-                    'opis'=>$params['opis'],
-                    'id_plik'=>$result,
-                    'is_active'=> isset($params['is_active']) ? $params['is_active'] : 0,
-                );
+                if(!isset($params['is_acvtive'])){
+                    $params['is_active'] = 0;
+                }
+                if($result){
+                    $data = array(
+                        'id_baneru'=>$id_baneru,
+                        'nazwa'=>$params['nazwa'],
+                        'opis'=>$params['opis'],
+                        'id_plik'=>$result ? $result : null,
+                        'is_active'=> $params['is_active'] == "on" ? 1 : 0,
+                    );
+                } else {
+                    $data = array(
+                        'id_baneru'=>$id_baneru,
+                        'nazwa'=>$params['nazwa'],
+                        'opis'=>$params['opis'],
+                        'is_active'=> $params['is_active'] == "on" ? 1 : 0,
+                    );
+                }
                 $result2 = $banneryEService->insert($data);
                 if($result2){
                     $request->getSession()->flash('successMessage','Pomyślnie dodano element banneru');
@@ -125,10 +141,10 @@ class CmsBanneryController extends Controller {
                     return redirect($_SERVER['HTTP_REFERER']);
                 }
 
-            } else{
-                $request->getSession()->flash('errorMessage','Wystąpił błąd przy dodawaniu pliku');
-                return redirect($_SERVER['HTTP_REFERER']);
-            }
+//            } else{
+//                $request->getSession()->flash('errorMessage','Wystąpił błąd przy dodawaniu pliku');
+//                return redirect($_SERVER['HTTP_REFERER']);
+//            }
 
         }
         return view('cms/bannery/dodajElement',array(

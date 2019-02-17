@@ -81,12 +81,26 @@ class CmsPostsController extends Controller {
     }
 
     public function create(Request $request){
+        $id_projektu = $request->input('id_projektu');
         $f = new AddNewPostForm();
         $form = $f::prepareForm();
         $array = $this->createPostSelectCategory($form);
         $form = $array['form'];
+        if($request->getMethod() == "POST"){
+            $data = $request->all();
+            $data['is_active'] = 1;
+            $result = $this->posts->insert($data);
+            if($result){
+                $request->getSession()->flash('successMessage','Dodano nowy wpis!');
+                return redirect('/cms/posts');
+            } else{
+                $request->getSession()->flash('errorMessage','Wystąpił błąd podczas zapisu!');
+                return redirect('/cms/posts');
+            }
+        }
         return view('cms/posts/dodaj',array(
             'form'=>$form,
+            'id_projektu'=>$id_projektu,
         ));
     }
 
@@ -116,6 +130,10 @@ class CmsPostsController extends Controller {
         $f2 = new EditPostFormDetail();
         $form2 = $f2::prepareForm();
         $post = $this->posts->getPostById($id);
+        $sciezka_plik = null;
+        if($post[0]->sciezka){
+            $sciezka_plik = $post[0]->sciezka;
+        }
         $array = $this->createPostSelectCategory($form);
         $form = $array['form'];
         $form = $this->fillTheForm($post[0],$form);
@@ -123,6 +141,9 @@ class CmsPostsController extends Controller {
             $data = $request->all();
             $data['id_category'] = $data['category'];
             unset($data['category']);
+            $imageUpload = $this->uploadFile(SlugService::createSlug($post[0]->title));
+            unset($data['file']);
+            $data['id_plik'] = $imageUpload;
             $result = $this->posts->update($data,$id);
             if($result){
                 $request->getSession()->flash('successMessage','Pomyślnie zaktualizowany dane!');
@@ -136,6 +157,8 @@ class CmsPostsController extends Controller {
             'form'=>$form,
             'form2'=>$form2,
             'id'=>$id,
+            'post'=>$post[0],
+            'image_src'=>$sciezka_plik,
             'content'=>$post[0]->description
         ));
     }

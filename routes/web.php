@@ -11,6 +11,10 @@
 |
 */
 
+//Image Script transform
+
+Route::any('/transform_image','Scripts\ImageController@transformImage')->name('transformImage');
+
 Route::any('/', "Auth\LoginController@login")->name('loginAction');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 Route::any('/setPassword','Auth\LoginController@setPassword')->name('setPassword');
@@ -83,3 +87,13 @@ Route::any('/configuration/categories','Ustawienia\CategoriesController@index')-
 Route::any('/configuration/categories/create','Ustawienia\CategoriesController@create')->name('config.categories.create');
 Route::any('/configuration/categories/delete/{id}','Ustawienia\CategoriesController@delete')->name('config.categories.delete');
 Route::any('/configuration/categories/changeActivity/{id}','Ustawienia\CategoriesController@changeActivity')->name('config.categories.Activity');
+
+Route::any('/configuration/gallery','Ustawienia\GalleryController@index')->name('config.galleries.list');
+Route::any('/configuration/gallery/create','Ustawienia\GalleryController@create')->name('config.galleries.create');
+Route::any('/configuration/gallery/config/{id}','Ustawienia\GalleryController@configGallery')->name('config.galleries.config');
+Route::any('/configuration/gallery/createElement/{id}','Ustawienia\GalleryController@createElement')->name('config.galleries.createElement');
+Route::any('/configuration/gallery/edit/{id}','Ustawienia\GalleryController@create')->name('config.galleries.edit');
+Route::any('/configuration/gallery/editElement/{id}','Ustawienia\GalleryController@editElement')->name('config.galleries.editElement');
+Route::any('/configuration/gallery/delete/{id}','Ustawienia\GalleryController@delete')->name('config.galleries.delete');
+Route::get('/configuration/gallery/changeActivity/{id}','Ustawienia\GalleryController@changeActivity')->name('config.galleries.Activity');
+Route::any('/configuration/gallery/deleteElement/{id}','Ustawienia\GalleryController@deleteElement')->name('config.galleries.deleteElement');

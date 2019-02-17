@@ -22,7 +22,7 @@ class LoginForm extends Form{
             'input'=>Form::createInput('password','password','','custom-form-input')
         ));
         array_push(self::$form_elements,array(
-            'input'=>Form::createInput('submit','submit','','btn-1 btn-long','Submit')
+            'input'=>Form::createInput('submit','Zaloguj','','btn-1 btn-long','Submit')
         ));
 
         return self::$form_elements;

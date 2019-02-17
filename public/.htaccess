@@ -8,7 +8,9 @@ php_value max_input_time 300
     </IfModule>
 
     RewriteEngine On
+  # Script php image
 
+    RewriteRule ^img/uploads/([a-zA-Z0-9-_]{1,48})/show_image/original-([a-zA-Z0-9-_]{1,100})\.(gif|jpg|png|jpeg|css|js|swf)$ scripts/tranformImage.php [L,NC]
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]

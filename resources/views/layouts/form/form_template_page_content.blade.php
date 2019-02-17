@@ -1,5 +1,5 @@
     <div class="col-md-12 page-content">
-        <?php echo Form::open(['url' => $url]) ?>
+        <?php echo Form::open(['url' => $url,'files' => isset($formfile) ? true : false]) ?>
         @foreach($form as $f)
             <?php //dump($f); ?>
             <div class="form-group text-left col-md-12">
@@ -14,6 +14,9 @@
                         </div>
                     @elseif($v['type'] == 'file')
                         <div class="col-md-10">
+                            @if($image_src)
+                                <img src="{{$image_src}}" width="200px"/>
+                                @endif
                             {{ Form::file($v['name'],['class'=>$v['class']]) }}
                         </div>
                     @elseif($v['type'] == 'textarea')
@@ -25,7 +28,7 @@
                             </textarea>
                         </div>
                     @elseif($v['type'] == 'submit')
-                        <div class="col-md-12">
+                        <div class="col-md-12 text-right">
                             {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                         </div>
                     @elseif($v['type'] == 'select')

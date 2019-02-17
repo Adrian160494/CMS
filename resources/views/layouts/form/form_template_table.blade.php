@@ -19,10 +19,13 @@
                        </div>
                    @elseif($v['type'] == 'file')
                        <div class="col-md-9">
+                           @if($image_src)
+                               <img src="{{$image_src}}" width="200px"/>
+                           @endif
                            {{ Form::file($v['name'],['class'=>$v['class']]) }}
                        </div>
                    @elseif($v['type'] == 'submit')
-                       <div class="col-md-12">
+                       <div class="col-md-12 text-right">
                            {{ Form::submit($v['name'],['class'=>$v['class']]) }}
                        </div>
                    @elseif($v['type'] == 'textarea')

@@ -26,7 +26,7 @@ a{
 }
 .main-logo{
   position: relative;
-  top: -10px;
+  top: 6px;
   left: -17px;
 }
 .addings{
@@ -101,17 +101,17 @@ a{
 }
 
 .btn-1{
-  background: transparent;
+  background: var(--color-blue);
   border: 1px solid #aaa;
   border-radius: 0;
+  width: 120px;
   text-transform: uppercase;
   font-size: 11px;
-  color: #666;
+  color: #fff;
   padding: 7px;
   font-weight: bolder;
-  transition: 0.5s all ease-in-out;
   &:hover{
-    background: #aaa;
+    background: #0030418f;
     color: #fff;
   }
 }
@@ -664,3 +664,37 @@ label{
 
 
 ///////////////////////////////////////////////////////
+
+////////// GALLERY ///////////////
+
+.gallery-element{
+  padding: 10px;
+  .element-content{
+    border: 1px solid #999;
+    padding: 10px;
+    background: #fff;
+    .img{
+      position: relative;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        max-height: 200px;
+        max-width: 100%;
+      }
+    }
+    .gallery-picture-desc{
+
+    }
+    .config-buttons{
+      padding: 4px 0;
+      background: #ececec;
+      height: 30px;
+      .but-wrap{
+        float: left;
+      }
+    }
+  }
+
+}
